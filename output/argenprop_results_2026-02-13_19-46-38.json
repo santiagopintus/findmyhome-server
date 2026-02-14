@@ -1,0 +1,18 @@
+{
+  "metadata": {
+    "total_results": 446,
+    "scraped_at": "2026-02-13T22:46:38.788165+00:00",
+    "search_criteria": {
+      "neighborhoods": [
+        "Núñez",
+        "Belgrano"
+      ],
+      "price_min": 150000,
+      "price_max": 160000,
+      "property_type": "departamentos",
+      "operation": "venta"
+    },
+    "listings_count": 0
+  },
+  "listings": []
+}

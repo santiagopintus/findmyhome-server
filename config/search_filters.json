@@ -1,0 +1,36 @@
+{
+  "_description": "Shared search criteria used by all scrapers. Format-agnostic — each scraper translates these into its own URL/API format.",
+
+  "property": {
+    "type": "departamento",
+    "operation": "sale"
+  },
+
+  "location": {
+    "country": "Argentina",
+    "city": "Buenos Aires",
+    "neighborhoods": [
+      "Belgrano",
+      "Núñez",
+      "Saavedra",
+      "Villa Urquiza"
+    ]
+  },
+
+  "price": {
+    "currency": "USD",
+    "min": 150000,
+    "max": 180000
+  },
+
+  "features": {
+    "bedrooms": [2, 3],
+    "parking_spots_min": 1
+  },
+
+  "scraping": {
+    "max_pages": 10,
+    "delay_between_requests_seconds": [1.0, 2.0],
+    "max_retries": 3
+  }
+}

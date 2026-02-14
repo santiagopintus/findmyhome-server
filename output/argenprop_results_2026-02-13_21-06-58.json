@@ -1,0 +1,601 @@
+{
+  "metadata": {
+    "total_results": 115,
+    "scraped_at": "2026-02-14T00:06:58.070120+00:00",
+    "search_criteria": {
+      "_description": "Shared search criteria used by all scrapers. Format-agnostic — each scraper translates these into its own URL/API format.",
+      "property": {
+        "type": "departamento",
+        "operation": "sale"
+      },
+      "location": {
+        "country": "Argentina",
+        "city": "Buenos Aires",
+        "neighborhoods": [
+          "Belgrano",
+          "Núñez",
+          "Saavedra",
+          "Villa Urquiza"
+        ]
+      },
+      "price": {
+        "currency": "USD",
+        "min": 150000,
+        "max": 180000
+      },
+      "features": {
+        "bedrooms": [
+          2,
+          3
+        ],
+        "parking_spots_min": 1
+      },
+      "scraping": {
+        "max_pages": 10,
+        "delay_between_requests_seconds": [
+          1.0,
+          2.0
+        ],
+        "max_retries": 3
+      }
+    },
+    "listings_count": 17
+  },
+  "listings": [
+    {
+      "id": "18059878",
+      "title": "Departamento en Venta en Belgrano, Capital Federal",
+      "price_usd": 173000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Belgrano",
+        "street_address": "Superí 2300",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "surface_total_m2": null,
+        "surface_covered_m2": null
+      },
+      "description": "Estupendo semipiso 3 ambientes en belgrano r, con doble ingreso, dependencia de servicio y pisos de parquet. El inmueble cuenta con:\n\n- amplio living comedor (ingreso principal) muy luminoso y con aire acondicionado split\n- balcón corrido al frente del edificio; ingresos por living y ambos dormitorios\n- cocina equipada (ingreso de servicio) con ventana al exterior\n- lavadero con ventilación al exterior, pileta de lavar y conexión para lavarropas\n- pasillo de distribución que conduce a los dormitorios, el baño y la dependencia\n- dos amplios dormitorios, ambos con placard empotrado y salida al balcón\n- baño completo con bañera y mampara\n- dependencia de servicio con baño con ducha y ventana al exterior (doble ingreso por el lavadero o el pasillo)\n- cochera propia en el edificio\n\nel inmueble se encuentra próximo a múltiples líneas de colectivo (19/41/67/76/107/114/133/151) y de la estación belgrano r del ferrocarril mitre. A metros de av. Olazábal, a 1 cuadra de monroe y de melián, y a 5 cuadras de crámer, congreso y balbín. Cercano a todo tipo de comercios, a 3 cuadras del hospital pirovano y a 5 cuadras de plaza castelli.\n\nM.A. Propiedades, hace más de 35 años junto a vos en la compra, venta y alquiler de inmuebles.\nSi te interesa, no dudes en consultarnos!\n\nMiguel andreu\nmatrícula cucicba 3002",
+      "images": [
+        "https://www.argenprop.com/static-content/87895081/81ead87d-f838-4daf-b1e1-e539683678c0_u_small.jpg",
+        "https://www.argenprop.com/static-content/87895081/68356122-a2b5-4b55-9105-8a443eeedc79_u_small.jpg",
+        "https://www.argenprop.com/static-content/87895081/3c9a8b51-c658-4bee-9e39-8c605b920ff7_u_small.jpg",
+        "https://www.argenprop.com/static-content/87895081/2d4a5369-65ea-4452-a240-5740e04e1fb7_u_small.jpg",
+        "https://www.argenprop.com/static-content/87895081/be17021c-4025-4112-a902-06021ee781a6_u_small.jpg",
+        "https://www.argenprop.com/static-content/87895081/8f90af07-e9ac-455a-b89c-fcff6cfdb9ff_u_small.jpg",
+        "https://www.argenprop.com/static-content/87895081/4311ed73-c494-49a0-a1ee-21a064f4ffa4_u_small.jpg",
+        "https://www.argenprop.com/static-content/87895081/58885a8f-8828-4251-b5d7-1062dcd13bfb_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-belgrano-3-ambientes--18059878",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:46.780209+00:00",
+      "features": []
+    },
+    {
+      "id": "17754863",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 179000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Lugones y Ibera",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 66.0
+      },
+      "description": "_ Dúplex de dos dormitorios en venta ubicado sobre calle lugones y ibera (villa urquiza, ciudad autónoma de buenos aires). Desarrollado en dos plantas sobre un primer piso por escalera, con disposición frente y orientación al noreste.\n_ El mismo posee cocina equipada con muebles sobre y bajo mesada, living comedor, toilette, dos dormitorios con placard empotrado y un baño completo. Amplio y luminoso, cuenta con balcón y lavadero.\n_ Cochera con capacidad para un vehículo.\n_ La propiedad tiene una superficie total de aproximadamente 70mts2, de los cuales 66mts2 son cubiertos.\nYacoub | construimos confianza\ninnovación | calidad | sustentabilidad | diseño\n70 mil metros cuadrados | 23 torres\n\nla información descripta en el presente aviso es meramente orientativa y no forma parte de ningún tipo de documentación contractual. Los datos enunciados fueron proporcionados por los propietarios y pueden arrojar inexactitudes, las superficies definitivas surgirán del título de propiedad del inmueble referido.\nSe deja constancia de que los valores y/o expensas pueden estar sujetas a verificación o ajuste.\n\nLo que estás buscando lo tenemos | estés donde estés\nvendemos en todos lados.",
+      "images": [
+        "https://www.argenprop.com/static-content/36845771/c7184039-4fbc-43d0-b2cd-399b39880203_u_small.jpg",
+        "https://www.argenprop.com/static-content/36845771/5db047ec-a5e8-4b02-8c21-cb53a7ea9aa8_u_small.jpg",
+        "https://www.argenprop.com/static-content/36845771/95e8d6c5-0bb4-45f1-96d6-61c648ef98c9_u_small.jpg",
+        "https://www.argenprop.com/static-content/36845771/0cfc2e63-8d64-4be7-ba9b-cc47c128aa0a_u_small.jpg",
+        "https://www.argenprop.com/static-content/36845771/8fa26bc6-2094-4987-afec-55ce5c3a6903_u_small.jpg",
+        "https://www.argenprop.com/static-content/36845771/0c39aae3-481a-457a-829a-516402e63397_u_small.jpg",
+        "https://www.argenprop.com/static-content/36845771/bbdf783c-b9df-414c-a27d-e99dfd95f2e4_u_small.jpg",
+        "https://www.argenprop.com/static-content/36845771/e40b868a-2921-438e-9dd5-909c3e309436_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--17754863",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:48.835035+00:00",
+      "features": []
+    },
+    {
+      "id": "16603970",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 179000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Av. Monroe 4445 , Piso 9",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 57.0
+      },
+      "description": "Se vende departamento de pozo a construir en el 9no piso al frente, de 3 ambientes, de 72 m2 en total siendo 57 cubiertos y 15 de balcón aterrazado baño y toilette, en el barrio de urquiza.\nAdemás se venden departamentos de 1, 2 y 3 ambientes, mas local comercial en pb, y cocheras, a estrenar, en edificio denominado \"espacio monroe\".\nUbicado sobre la av. Monroe 4443/47, entre las calles lugones y mariano acha, en el barrio de urquiza, a pocas cuadras de av. Triunvirato y centro comercial, además de estar a pocos metros del corredor holmberg-donado, conocido como el polo gastronómico doho.\nEl edificio comenzará a construirse brevemente, para ser entregadas las unidades aproximadamente en los siguientes 30 meses.\nSe comercializan unidades de 2 y 3 ambientes, al frente y al contra frente, distribuidas en 9 pisos, cuentan con amplios balcones y parrilla individual, balcón terraza, todos los ambientes con aire acondicionado tipo split, amenities: piscina, solárium, parrilla comunitaria, laundry,, todo los materiales son de primera categoría, las especificaciones están descriptas más abajo.\nCuenta con un amplio local en pb, de 180 m2 con instalación de gas y salida a los 4 vientos.\nLa constructura se hará cargo de las primeras 12 expensas de cada unidad, una vez tomada la posesión de cada departamento.\nLas cocheras y las bauleras se comercializan aparte del valor del departamento.\nPara avanzar, se tomará una oferta de compra, y se realizará un boleto de compra venta adelantando el 30 % y cuotas mensuales en dólares billetes estadounidenses ó en $ utilizando una fórmula de actualización consensuada entre las partes, hasta completar el total del valor de la unidad, al tomar la posesión de la misma.\nSe toma departamento ó ph en parte de pago, a satisfacción de la constructora, zonas de recoleta/barrio norte/palermo/belgrano/nuñez y aledaños.\nTerminaciones de las unidades:\ncarpinterías metálicas y de madera:\n- aberturas exteriores con hojas corredizas de aluminio anodizado (color\nnatural).\n- Puertas de entrada a los departamentos enchapadas en cedrillo.\n- Puertas interiores pintadas con esmalte sintético satinado.\n- Interiores de placares completos en melamina con estantes, cajoneras y\nbarrales. Frente de placar en hojas corredizas espejadas.\nRevestimientos de pisos y paredes:\n- estar, comedor y dormitorios con piso flotante.\n- Palieres, cocinas y baños en porcelanato.\n- Balcones y terrazas en cerámica de primera calidad.\nYesería:\n- aplicado de yeso en paredes.\n- Aplicado de yeso en cielorrasos.\nPintura:\n- pintura al látex en paredes y cielorrasos.\nInstalación sanitaria:\n- la totalidad de la instalación de agua fría y caliente será realizada en\npolipropileno por termofusión (acqua system o similar).\n- Desagües cloacales y pluviales serán realizados en polipropileno de 3.2 mm\nde espesor (awaduct o similar).\n- Instalación contra incendio en hierro galvanizado. Caja de hidrante completo\ncon manguera, lanza y matafuegos.\nArtefactos sanitarios:\n- inodoro con depósito mochila y bidet (marca roca, línea victoria o similar)\n- asiento de inodoro (misma línea).\n- Mesada de mármol con lavatorio (misma línea), vanitory bajo mesada en\nmelanina.\n- Bañeras de primera calidad (ferrum o similar).\n- Mesada de cocina en granito gris mara con pileta de acero inoxidable de\nprimera calidad.\n- Muebles bajo mesada y alacena de cocina diseñados en melamina y perfiles de\naluminio.\n- Artefacto de cocina en acero inoxidable con certificado de garantía.\n- Caldera para agua caliente de primera calidad con certificado de garantía\n(marca peisa o similar).\nGriferías:\n- griferías mono comando cromadas de baño (marca fv arizona o similar).\n- Griferías mono comando cromadas de cocina (marca fv arizona o similar).\n- Llaves de paso agua fría y caliente con campanas cromadas.\nInstalación eléctrica:\n- cañerías en caño corrugado y cajas de luz y tomacorrientes en hierro negro\nsegún ubicación.\n- Cables anti llama (pirelli o similar): un circuito eléctrico para tomacorrientes de\n2,5 mm de diámetro. Un circuito eléctrico para iluminación de 1,5 mm de\ndiámetro. Un circuito eléctrico independiente por cada a°a° de 2,5 mm de\ndiámetro.\n- Tablero seccional de departamento con sus respectivas llaves termo\nmagnéticas por cada circuito y disyuntor diferencial.\n- Montante eléctrica con cable de 4 mm de diámetro de la misma calidad.\n- Bocas para teléfono y tv en dormitorios y estar-comedor.\n- Instalación preparada para recibir una línea de teléfono por departamento y\nlínea de tv por cable.\n- Se proveerán y colocarán todos los artefactos de iluminación en los espacios\ncomunes. La luz de palier será con encendido automático.\n- Toda la instalación según normas de la gobernación de la ciudad de buenos\naires y e.N.R.E.\nCalefacción y refrigeración:\n- preparada para unidades split (frío/calor) con dimensiones adecuadas al\nvolumen del departamento. Incluye equipos de a° a°.\nSectores comunes:\n- hall de planta baja con diseño moderno y materiales de primera calidad.\n- Ascensores con revestimiento de espejo en paredes y puertas automáticas de\nacero inoxidable en planta baja y puerta de hierro pintado en los pisos altos.\n- Azotea con parrilla y solárium.\n- Sum vidriado en planta baja con cocina y parrilla (terminación de diseño\nmoderno).\n- Piscina de natación con solárium y jardín.\n- Construcción tradicional con materiales de primera calidad.\n- Frente y contra frente pintado en uno o dos tonos a definir.\n- Balcones con barandas de diseño moderno en aluminio anodizado y vidrio\nconstruye marlcons constructora\notras obras realizadas por la empresa: dirigidas por marcelo riquelme\n-av. San martin 1552 vicente lópez\n-santos dumont 3775 caba\n-salta 693 caba terminado recientemente\n-campana 2529 caba en construcción\n-agüero 2288 caba\n-suipacha 942 caba\n-manuela pedraza 2967 caba\n\nconsultar unidades disponibles\ncomercializa y vende\nhaase brokers inmobiliarios\nhaase marcelo cmcpsi 6677\nhaase jaqueline cucicba 7785\nen belgrano: virrey del pino 2686 2° \"f\"\nen vicente lópez: av. San martin 1973 pb 4\n\nservicios: cloacas\n\notros servicios: sum, portero visor",
+      "images": [
+        "https://www.argenprop.com/static-content/07930661/8c9c6f8a-d526-429f-b538-022ead94d5e6_u_small.jpg",
+        "https://www.argenprop.com/static-content/07930661/c20bcc20-0366-4090-aa3d-b0f3d51bd634_u_small.jpg",
+        "https://www.argenprop.com/static-content/07930661/259ddf97-1ae8-411f-9255-c3f9e6515b1d_u_small.jpg",
+        "https://www.argenprop.com/static-content/07930661/6ab51a6c-ca15-4d31-aee5-238052d44aea_u_small.jpg",
+        "https://www.argenprop.com/static-content/07930661/3e97a1f5-14d8-4c68-ad4f-f6b8b75dc17e_u_small.jpg",
+        "https://www.argenprop.com/static-content/07930661/365c6873-8307-4c8d-9e77-0a9f0dc11ad1_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--16603970",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:48.839154+00:00",
+      "features": []
+    },
+    {
+      "id": "17903444",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 179000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Bauness 1200, Piso PB",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 75.0
+      },
+      "description": "Hermoso departamento con increíble patio de 10x4\ntodo en planta baja al contra frente\nliving con aire split y cocina incorporada\ndormitorio con vestidor y baño completo.\nAl fondo ambiente con baño, cocina, lavadero y aire split\ncochera fija cubierta\napto crédito bancario\nsebastian",
+      "images": [
+        "https://www.argenprop.com/static-content/44430971/4b587955-c91c-4208-bf79-6459f5bf11d0_u_small.jpg",
+        "https://www.argenprop.com/static-content/44430971/6e79f59a-fd1c-4dc9-a06d-87a8a2545795_u_small.jpg",
+        "https://www.argenprop.com/static-content/44430971/6e9f5410-5962-45bb-8bc0-9c42ce1724cd_u_small.jpg",
+        "https://www.argenprop.com/static-content/44430971/7164db2c-3075-4577-8c17-3fa67b6a4b29_u_small.jpg",
+        "https://www.argenprop.com/static-content/44430971/2b352d2a-a725-4036-a531-d63923075c0e_u_small.jpg",
+        "https://www.argenprop.com/static-content/44430971/86f3b692-4316-4875-9538-632502331e29_u_small.jpg",
+        "https://www.argenprop.com/static-content/44430971/aec26119-30c7-4d4f-9739-5e1d6afa638d_u_small.jpg",
+        "https://www.argenprop.com/static-content/44430971/81efb38e-87f7-4540-806b-234d59bd0369_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--17903444",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:48.847137+00:00",
+      "features": []
+    },
+    {
+      "id": "18798345",
+      "title": "Departamento en Venta en Nuñez, Capital Federal",
+      "price_usd": 179000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Nuñez",
+        "street_address": "Ciudad De La Paz 3500",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 62.0
+      },
+      "description": "[Solucionip-3590]\n\ndepartamento 3 ambientes con cochera cubierta en núñez\n\nluminoso departamento de 3 ambientes ubicado en el barrio de núñez, con excelente conectividad y entorno en crecimiento.\n\n2 dormitorios con placard\n\nbaño completo\n\npisos en excelente estado\n\ncocina en muy buenas condiciones\n\nliving con salida a balcón al frente\n\nsplit frío/calor lg de 2500 fg en dormitorio principal\n\nsuperficie aproximada: 65 m² (incluyendo la cochera)\n\n1 cochera cubierta con posibilidad de guardar un segundo auto chico (solo 2 cocheras en el edificio y amplio acceso)\n\nedificio de 13 años de antigüedad, con ascensor en excelente estado y terraza común\n\nexpensas aproximadas: $220.000 mensuales\n\ntodos los servicios al día\n\nubicación y accesibilidad:\n\nsubte línea d a 600 m\n\ntren mitre a 500 m\n\nvarias líneas de colectivos a 100 m\n\nservicios: cloacas, gas\n\n\n\nimportante:\nventas:  el aviso publicado es al mero efecto informativo y no constituye una oferta ni solicitud de oferta o compra, ni una recomendación de inversión, y se entiende que presenta información resumida, preliminar y no definitiva de un inmueble o negocio. Si el aviso contuviera estimaciones o proyecciones, se entenderá que las mismas son solo opiniones que reflejan expectativas de buena fe. Imágenes no contractuales. Todas las medidas son aproximadas, y debe entenderse que toda operación se realizará ad-corpus. Los montos y porcentajes son valores de referencia y pueden variar sin previo aviso. En caso de locación, los valores expresados no incluyen iva. Las locaciones residenciales para persona física que alquila para sí misma están exentas de iva. En caso de venta, operación sujeta a la tramitación del código de oferta de transferencia de inmuebles (coti) por parte del propietario. Solicitar citas con anticipación.\nAlquileres: \"para los casos de alquiler de vivienda, el monto máximo de comisión que se le puede requerir a los propietarios será el equivalente al cuatro con quince centésimos por ciento (4,15%) del valor total del respectivo contrato. Se encuentra prohibido cobrar a los inquilinos que sean personas físicas comisiones inmobiliarias y gastos de gestoría de informes\".-",
+      "images": [
+        "https://www.argenprop.com/static-content/54389781/9cffe945-4487-476f-af64-860785285489_u_small.jpg",
+        "https://www.argenprop.com/static-content/54389781/738b0dc2-49e6-4a5b-961d-a35731f6eba3_u_small.jpg",
+        "https://www.argenprop.com/static-content/54389781/8c3dd1bb-94eb-409f-b947-950ce23b8178_u_small.jpg",
+        "https://www.argenprop.com/static-content/54389781/0e025232-bbc2-4398-88cd-428796138141_u_small.jpg",
+        "https://www.argenprop.com/static-content/54389781/487a10b4-56c2-4112-8495-88205b908796_u_small.jpg",
+        "https://www.argenprop.com/static-content/54389781/6591ad40-dd7e-4340-a444-d66816d35cf0_u_small.jpg",
+        "https://www.argenprop.com/static-content/54389781/7f07b31a-3997-44a0-9759-0ec1ed30e698_u_small.jpg",
+        "https://www.argenprop.com/static-content/54389781/a1fff210-3183-4759-86a2-da887590b3b6_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-nunez-3-ambientes--18798345",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:50.943244+00:00",
+      "features": []
+    },
+    {
+      "id": "16610959",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 159000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Av. Monroe 4445 , Piso 5",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 58.0
+      },
+      "description": "Se vende departamento de pozo a construir de 3 ambientes, de 67 m2, en el 5to piso al frente, siendo 58 cubiertos y 9 descubiertos de balcón aterrazado baño y toilette, en el barrio de urquiza.\nAdemás se venden departamentos de 1, 2 y 3 ambientes, mas local comercial en pb, y cocheras, a estrenar, en edificio denominado \"espacio monroe\"..\nUbicado sobre la av. Monroe 4443/47, entre las calles lugones y mariano acha, en el barrio de urquiza, a pocas cuadras de av. Triunvirato y centro comercial, además de estar a pocos metros del corredor holmberg-donado, conocido como el polo gastronómico doho.\nEl edificio comenzará a construirse brevemente, para ser entregadas las unidades aproximadamente en los siguientes 30 meses.\nSe comercializan unidades de 2 y 3 ambientes, al frente y al contra frente, distribuidas en 9 pisos, cuentan con amplios balcones y parrilla individual, balcón terraza, todos los ambientes con aire acondicionado tipo split, amenities: piscina, solárium, parrilla comunitaria, laundry,, todo los materiales son de primera categoría, las especificaciones están descriptas más abajo.\nCuenta con un amplio local en pb, de 180 m2 con instalación de gas y salida a los 4 vientos.\nLa constructura se hará cargo de las primeras 12 expensas de cada unidad, una vez tomada la posesión de cada departamento.\nLas cocheras y las bauleras se comercializan aparte del valor del departamento.\nPara avanzar, se tomará una oferta de compra, y se realizará un boleto de compra venta adelantando el 30 % y cuotas mensuales en dólares billetes estadounidenses ó en $ utilizando una fórmula de actualización consensuada entre las partes, hasta completar el total del valor de la unidad, al tomar la posesión de la misma.\nSe toma departamento ó ph en parte de pago, a satisfacción de la constructora, zonas de recoleta/barrio norte/palermo/belgrano/nuñez y aledaños.\nTerminaciones de las unidades:\ncarpinterías metálicas y de madera:\n- aberturas exteriores con hojas corredizas de aluminio anodizado (color\nnatural).\n- Puertas de entrada a los departamentos enchapadas en cedrillo.\n- Puertas interiores pintadas con esmalte sintético satinado.\n- Interiores de placares completos en melamina con estantes, cajoneras y\nbarrales. Frente de placar en hojas corredizas espejadas.\nRevestimientos de pisos y paredes:\n- estar, comedor y dormitorios con piso flotante.\n- Palieres, cocinas y baños en porcelanato.\n- Balcones y terrazas en cerámica de primera calidad.\nYesería:\n- aplicado de yeso en paredes.\n- Aplicado de yeso en cielorrasos.\nPintura:\n- pintura al látex en paredes y cielorrasos.\nInstalación sanitaria:\n- la totalidad de la instalación de agua fría y caliente será realizada en\npolipropileno por termofusión (acqua system o similar).\n- Desagües cloacales y pluviales serán realizados en polipropileno de 3.2 mm\nde espesor (awaduct o similar).\n- Instalación contra incendio en hierro galvanizado. Caja de hidrante completo\ncon manguera, lanza y matafuegos.\nArtefactos sanitarios:\n- inodoro con depósito mochila y bidet (marca roca, línea victoria o similar)\n- asiento de inodoro (misma línea).\n- Mesada de mármol con lavatorio (misma línea), vanitory bajo mesada en\nmelanina.\n- Bañeras de primera calidad (ferrum o similar).\n- Mesada de cocina en granito gris mara con pileta de acero inoxidable de\nprimera calidad.\n- Muebles bajo mesada y alacena de cocina diseñados en melamina y perfiles de\naluminio.\n- Artefacto de cocina en acero inoxidable con certificado de garantía.\n- Caldera para agua caliente de primera calidad con certificado de garantía\n(marca peisa o similar).\nGriferías:\n- griferías mono comando cromadas de baño (marca fv arizona o similar).\n- Griferías mono comando cromadas de cocina (marca fv arizona o similar).\n- Llaves de paso agua fría y caliente con campanas cromadas.\nInstalación eléctrica:\n- cañerías en caño corrugado y cajas de luz y tomacorrientes en hierro negro\nsegún ubicación.\n- Cables anti llama (pirelli o similar): un circuito eléctrico para tomacorrientes de\n2,5 mm de diámetro. Un circuito eléctrico para iluminación de 1,5 mm de\ndiámetro. Un circuito eléctrico independiente por cada a°a° de 2,5 mm de\ndiámetro.\n- Tablero seccional de departamento con sus respectivas llaves termo\nmagnéticas por cada circuito y disyuntor diferencial.\n- Montante eléctrica con cable de 4 mm de diámetro de la misma calidad.\n- Bocas para teléfono y tv en dormitorios y estar-comedor.\n- Instalación preparada para recibir una línea de teléfono por departamento y\nlínea de tv por cable.\n- Se proveerán y colocarán todos los artefactos de iluminación en los espacios\ncomunes. La luz de palier será con encendido automático.\n- Toda la instalación según normas de la gobernación de la ciudad de buenos\naires y e.N.R.E.\nCalefacción y refrigeración:\n- preparada para unidades split (frío/calor) con dimensiones adecuadas al\nvolumen del departamento. Incluye equipos de a° a°.\nSectores comunes:\n- hall de planta baja con diseño moderno y materiales de primera calidad.\n- Ascensores con revestimiento de espejo en paredes y puertas automáticas de\nacero inoxidable en planta baja y puerta de hierro pintado en los pisos altos.\n- Azotea con parrilla y solárium.\n- Sum vidriado en planta baja con cocina y parrilla (terminación de diseño\nmoderno).\n- Piscina de natación con solárium y jardín.\n- Construcción tradicional con materiales de primera calidad.\n- Frente y contra frente pintado en uno o dos tonos a definir.\n- Balcones con barandas de diseño moderno en aluminio anodizado y vidrio\nconstruye marlcons constructora\notras obras realizadas por la empresa: dirigidas por marcelo riquelme\n-av. San martin 1552 vicente lópez\n-santos dumont 3775 caba\n-salta 693 caba terminado recientemente\n-campana 2529 caba en construcción\n-agüero 2288 caba\n-suipacha 942 caba\n-manuela pedraza 2967 caba\n\nconsultar unidades disponibles\ncomercializa y vende\nhaase brokers inmobiliarios\nhaase marcelo cmcpsi 6677\nhaase jaqueline cucicba 7785\nen belgrano: virrey del pino 2686 2° \"f\"\nen vicente lópez: av. San martin 1973 pb 4",
+      "images": [
+        "https://www.argenprop.com/static-content/95901661/ca0ec50b-c907-4163-9024-29d2756f8366_u_small.jpg",
+        "https://www.argenprop.com/static-content/95901661/2f2c2753-6107-4dae-9710-04bb189c83b5_u_small.jpg",
+        "https://www.argenprop.com/static-content/95901661/75623c39-de41-4738-857e-62f9e6685b1d_u_small.jpg",
+        "https://www.argenprop.com/static-content/95901661/e58711bc-f53f-41ed-bc8a-8a8e3dc646bc_u_small.jpg",
+        "https://www.argenprop.com/static-content/95901661/fd7d66c6-c85b-4baa-accb-3324be96517b_u_small.jpg",
+        "https://www.argenprop.com/static-content/95901661/84ed3df9-dad6-46e1-a022-6640c00d135e_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--16610959",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:50.952234+00:00",
+      "features": []
+    },
+    {
+      "id": "16611091",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 165000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Av. Monroe 4445 , Piso 6",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 58.0
+      },
+      "description": "Se vende departamento de pozo a construir de 3 ambientes, 67 m2, en el 6to piso al frente, siendo 58 m2 cubiertos y 9 m2 de balcón aterrazado baño y toilette, en el barrio de urquiza.\nAdemás se venden departamentos de 1, 2 y 3 ambientes, mas local comercial en pb, y cocheras, a estrenar, en edificio denominado \"espacio monroe\".\nUbicado sobre la av. Monroe 4443/47, entre las calles lugones y mariano acha, en el barrio de urquiza, a pocas cuadras de av. Triunvirato y centro comercial, además de estar a pocos metros del corredor holmberg-donado, conocido como el polo gastronómico doho.\nEl edificio comenzará a construirse brevemente, para ser entregadas las unidades aproximadamente en los siguientes 30 meses.\nSe comercializan unidades de 2 y 3 ambientes, al frente y al contra frente, distribuidas en 9 pisos, cuentan con amplios balcones y parrilla individual, balcón terraza, todos los ambientes con aire acondicionado tipo split, amenities: piscina, solárium, parrilla comunitaria, laundry,, todo los materiales son de primera categoría, las especificaciones están descriptas más abajo.\nCuenta con un amplio local en pb, de 180 m2 con instalación de gas y salida a los 4 vientos.\nLa constructura se hará cargo de las primeras 12 expensas de cada unidad, una vez tomada la posesión de cada departamento.\nLas cocheras y las bauleras se comercializan aparte del valor del departamento.\nPara avanzar, se tomará una oferta de compra, y se realizará un boleto de compra venta adelantando el 30 % y cuotas mensuales en dólares billetes estadounidenses ó en $ utilizando una fórmula de actualización consensuada entre las partes, hasta completar el total del valor de la unidad, al tomar la posesión de la misma.\nSe toma departamento ó ph en parte de pago, a satisfacción de la constructora, zonas de recoleta/barrio norte/palermo/belgrano/nuñez y aledaños.\nTerminaciones de las unidades:\ncarpinterías metálicas y de madera:\n- aberturas exteriores con hojas corredizas de aluminio anodizado (color\nnatural).\n- Puertas de entrada a los departamentos enchapadas en cedrillo.\n- Puertas interiores pintadas con esmalte sintético satinado.\n- Interiores de placares completos en melamina con estantes, cajoneras y\nbarrales. Frente de placar en hojas corredizas espejadas.\nRevestimientos de pisos y paredes:\n- estar, comedor y dormitorios con piso flotante.\n- Palieres, cocinas y baños en porcelanato.\n- Balcones y terrazas en cerámica de primera calidad.\nYesería:\n- aplicado de yeso en paredes.\n- Aplicado de yeso en cielorrasos.\nPintura:\n- pintura al látex en paredes y cielorrasos.\nInstalación sanitaria:\n- la totalidad de la instalación de agua fría y caliente será realizada en\npolipropileno por termofusión (acqua system o similar).\n- Desagües cloacales y pluviales serán realizados en polipropileno de 3.2 mm\nde espesor (awaduct o similar).\n- Instalación contra incendio en hierro galvanizado. Caja de hidrante completo\ncon manguera, lanza y matafuegos.\nArtefactos sanitarios:\n- inodoro con depósito mochila y bidet (marca roca, línea victoria o similar)\n- asiento de inodoro (misma línea).\n- Mesada de mármol con lavatorio (misma línea), vanitory bajo mesada en\nmelanina.\n- Bañeras de primera calidad (ferrum o similar).\n- Mesada de cocina en granito gris mara con pileta de acero inoxidable de\nprimera calidad.\n- Muebles bajo mesada y alacena de cocina diseñados en melamina y perfiles de\naluminio.\n- Artefacto de cocina en acero inoxidable con certificado de garantía.\n- Caldera para agua caliente de primera calidad con certificado de garantía\n(marca peisa o similar).\nGriferías:\n- griferías mono comando cromadas de baño (marca fv arizona o similar).\n- Griferías mono comando cromadas de cocina (marca fv arizona o similar).\n- Llaves de paso agua fría y caliente con campanas cromadas.\nInstalación eléctrica:\n- cañerías en caño corrugado y cajas de luz y tomacorrientes en hierro negro\nsegún ubicación.\n- Cables anti llama (pirelli o similar): un circuito eléctrico para tomacorrientes de\n2,5 mm de diámetro. Un circuito eléctrico para iluminación de 1,5 mm de\ndiámetro. Un circuito eléctrico independiente por cada a°a° de 2,5 mm de\ndiámetro.\n- Tablero seccional de departamento con sus respectivas llaves termo\nmagnéticas por cada circuito y disyuntor diferencial.\n- Montante eléctrica con cable de 4 mm de diámetro de la misma calidad.\n- Bocas para teléfono y tv en dormitorios y estar-comedor.\n- Instalación preparada para recibir una línea de teléfono por departamento y\nlínea de tv por cable.\n- Se proveerán y colocarán todos los artefactos de iluminación en los espacios\ncomunes. La luz de palier será con encendido automático.\n- Toda la instalación según normas de la gobernación de la ciudad de buenos\naires y e.N.R.E.\nCalefacción y refrigeración:\n- preparada para unidades split (frío/calor) con dimensiones adecuadas al\nvolumen del departamento. Incluye equipos de a° a°.\nSectores comunes:\n- hall de planta baja con diseño moderno y materiales de primera calidad.\n- Ascensores con revestimiento de espejo en paredes y puertas automáticas de\nacero inoxidable en planta baja y puerta de hierro pintado en los pisos altos.\n- Azotea con parrilla y solárium.\n- Sum vidriado en planta baja con cocina y parrilla (terminación de diseño\nmoderno).\n- Piscina de natación con solárium y jardín.\n- Construcción tradicional con materiales de primera calidad.\n- Frente y contra frente pintado en uno o dos tonos a definir.\n- Balcones con barandas de diseño moderno en aluminio anodizado y vidrio\nconstruye marlcons constructora\notras obras realizadas por la empresa: dirigidas por marcelo riquelme\n-av. San martin 1552 vicente lópez\n-santos dumont 3775 caba\n-salta 693 caba terminado recientemente\n-campana 2529 caba en construcción\n-agüero 2288 caba\n-suipacha 942 caba\n-manuela pedraza 2967 caba\n\nconsultar unidades disponibles\ncomercializa y vende\nhaase brokers inmobiliarios\nhaase marcelo cmcpsi 6677\nhaase jaqueline cucicba 7785\nen belgrano: virrey del pino 2686 2° \"f\"\nen vicente lópez: av. San martin 1973 pb 4",
+      "images": [
+        "https://www.argenprop.com/static-content/19011661/a7a084d9-f0a7-40a1-af29-607427664e8c_u_small.jpg",
+        "https://www.argenprop.com/static-content/19011661/1de9ac77-a961-4605-a44b-306fd64b30d1_u_small.jpg",
+        "https://www.argenprop.com/static-content/19011661/7dca855e-08cb-4ee1-8655-7090c2991b1b_u_small.jpg",
+        "https://www.argenprop.com/static-content/19011661/5fb55e68-6fd7-4b75-a4f1-60270bca1c20_u_small.jpg",
+        "https://www.argenprop.com/static-content/19011661/a7c33ef9-ca8e-4a86-bd30-f93851bc6e43_u_small.jpg",
+        "https://www.argenprop.com/static-content/19011661/1e1cc7ee-25f4-49ca-954a-cc287dac92a6_u_small.jpg",
+        "https://www.argenprop.com/static-content/19011661/3b0ea834-57a7-4891-ba61-cb264e928318_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--16611091",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:50.953217+00:00",
+      "features": []
+    },
+    {
+      "id": "17996780",
+      "title": "Departamento en Venta en Lomas de Nuñez, Nuñez",
+      "price_usd": 150000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Lomas de Nuñez",
+        "street_address": "General Paz  1018",
+        "city": "Nuñez"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 67.0
+      },
+      "description": "Departamento de 3 ambientes con cochera en núñez\n\nubicado en una zona tranquila, a una cuadra del metrobus, del tren y con rápido acceso a general paz.\n\nSe trata de un semipiso con doble entrada , de 67 m2 con balcón y vista abierta hacia la ciudad y el río. Al no tener edificios cercanos, todos los ambientes reciben muy buena luz natural.\n\nCuenta con living comedor con salida al balcón, cocina con lavadero, dos dormitorios con placard y un baño completo. Presenta potencial para refaccionar.\n\nIncluye cochera cubierta de fácil acceso y baulera. El edificio cuenta con jardín en planta baja y solo dos departamentos por piso.\n\nApto credito\npara visitar contactate con nosotros \n\n*las medidas y superficies expuestas surgen de la información suministrada por el propietario, la empresa no se responsabiliza por la exactitud de las mismas*. El valor consignado de las expensas mensuales (en caso que corresponda pago de expensas) están sujetos a verificación y/o ajustes. En el caso de tratarse de un inmueble en construcción los detalles de terminación y la fecha de entrega están sujetos a revisión. Las unidades publicadas están sujetas a disponibilidad.\n\nCasa central: av. Fleming 2800, martínez  \nsucursal: av. Del libertador 13208, martínez\nsucursal: eduardo costa 1804, martínez \nsucursal: larrea 1381 2 a, caba\n\nhorario: lunes a viernes de 9 a 18 hs y sábados 9 a 13 hs.\n\nCarlos a. Bezruk mat. 3275 cmsi.\nCucicba  mat. 5952",
+      "images": [
+        "https://www.argenprop.com/static-content/08769971/3e035ae5-0531-437d-9daf-f40a56ff70c9_u_small.jpg",
+        "https://www.argenprop.com/static-content/08769971/e6f5e5b7-29c0-4339-bcd2-4c7a874dd869_u_small.jpg",
+        "https://www.argenprop.com/static-content/08769971/be632aa3-d311-4461-90f3-a7d6aaca15e3_u_small.jpg",
+        "https://www.argenprop.com/static-content/08769971/8735f5a4-336b-46ba-87eb-062eb3a901be_u_small.jpg",
+        "https://www.argenprop.com/static-content/08769971/8f87de8a-d84c-4b9c-b6bb-ea9eba641a9a_u_small.jpg",
+        "https://www.argenprop.com/static-content/08769971/1665df64-66a6-4653-b28a-44f883ef687f_u_small.jpg",
+        "https://www.argenprop.com/static-content/08769971/46b0331d-d15e-43b0-85e2-74d69c52761e_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-lomas-de-nunez-3-ambientes--17996780",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:50.964263+00:00",
+      "features": []
+    },
+    {
+      "id": "18092219",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 180000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Pacheco al 2800",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 60.0
+      },
+      "description": "Semi piso de 3 ambientes al frente \nexcelente construcción \namplio living comedor con pisos de madera entablonados. Balcón.\nCocina office y lavadero independientes - amoblamiento completo (bajo mesada y alacena).\nBaño principal en suite mas baño completo.\nDormitorio con pisos de madera y placard espejado.\n\nCalefacción por radiadores por caldera dual.\nCochera descubierta. Baulera individual.\nTerraza comun c/parrillas \nalquilado hasta 31/07/26\n\nen cumplimiento a la ley 5115, se informa que el inmueble es accesible para personas con discapacidades físicas.\nCucicba mat. N 27/67",
+      "images": [
+        "https://www.argenprop.com/static-content/91229081/242b8a01-34ae-4e94-a73a-6421a6bef133_u_small.jpg",
+        "https://www.argenprop.com/static-content/91229081/2e002684-a6e1-4fe4-b0d4-c0922a913076_u_small.jpg",
+        "https://www.argenprop.com/static-content/91229081/bb6c8f5e-ceda-4420-8a38-94fdb2ac7fc3_u_small.jpg",
+        "https://www.argenprop.com/static-content/91229081/7e9cfa16-d646-449c-b4da-443a427edb1c_u_small.jpg",
+        "https://www.argenprop.com/static-content/91229081/2e0409ba-6c9a-4cbe-acbb-1677474e9c25_u_small.jpg",
+        "https://www.argenprop.com/static-content/91229081/584231e8-ee21-4fa3-b3d9-5aa99a3bb016_u_small.jpg",
+        "https://www.argenprop.com/static-content/91229081/8bd91faa-e431-4854-b0d2-8dc741090f0a_u_small.jpg",
+        "https://www.argenprop.com/static-content/91229081/e6a55cf3-d57e-4844-88b3-1615cecc6610_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--18092219",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:50.970231+00:00",
+      "features": []
+    },
+    {
+      "id": "18223455",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 177500.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Quesada al 4600",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 69.0
+      },
+      "description": "Venta departamento 3 ambientes con balcón al frente y cochera - en pozo en quesada al 4600, villa urquiza\n\ndepartamento en el 2do piso al frente\n\n- entrega: mayo 2028\n- unidades: 2 y 3 ambientes con patio, terraza o cocheras\n- ubicación estratégica con acceso directo a avenidas importantes y transporte público (línea b de subte, ferrocarril mitre y colectivos)\n- barrio en crecimiento con polo gastronómico, plazas, clubes deportivos y colegios\n- equipamiento: terraza, sector quincho, parrilla y solárium\n- forma de pago: 50% anticipo, saldo en 28 cuotas iguales y consecutivas o contado\n- valores de preventa rebajados con grandes oportunidades para inversores\n\ncaracterísticas técnicas:\n\n- estructura de hormigón armado\n- carpinterías exteriores de aluminio natural con vidrio 3+3\n- instalación sanitaria y eléctrica de alta calidad\n- ascensor inteligente con acceso digital y asistencia de ups\n\nconsulta con nuestro equipo profesional para obtener más información y asesoramiento personalizado.\n\nNota: la información gráfica y escrita contenida en el presente aviso es meramente a titulo estimativo y no forma parte de ningún tipo de documentación contractual. Las medidas y superficies definitivas surgirán del título de propiedad del inmueble referido. Asimismo los importes de tasas, servicios y expensas indicados están sujetos a verificación. El valor del inmueble indicado en el presente puede ser modificado sin previo aviso. Operación supeditada a que el propietario cumplimente con la reg.2371 coti.\nLuciana l. Fedele cpi 7756 tomo 1 folio 289  y  cmcpsi 6712 libro 10 folio 109,",
+      "images": [
+        "https://www.argenprop.com/static-content/55432281/cfb49dc7-1312-49eb-b666-7a440bd5bbda_u_small.jpg",
+        "https://www.argenprop.com/static-content/55432281/c1b49c95-cc7b-4569-9dec-f4c771f450ca_u_small.jpg",
+        "https://www.argenprop.com/static-content/55432281/c81111d2-9a74-4b3e-a7e8-f0ce58410af3_u_small.jpg",
+        "https://www.argenprop.com/static-content/55432281/1c7504be-4d01-4a4e-9ef6-1c976047b616_u_small.jpg",
+        "https://www.argenprop.com/static-content/55432281/f686627c-118a-4e81-8851-801301fd8afe_u_small.jpg",
+        "https://www.argenprop.com/static-content/55432281/4df9e9a3-fbed-476b-aa30-db4f49e7fce3_u_small.jpg",
+        "https://www.argenprop.com/static-content/55432281/315ca0a0-86d1-4b70-afac-0714837f59ab_u_small.jpg",
+        "https://www.argenprop.com/static-content/55432281/593f1cd3-2fc6-417d-9f1c-c8388d087bb2_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--18223455",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:52.926913+00:00",
+      "features": []
+    },
+    {
+      "id": "18856480",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 169900.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Baunes al 2800",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 54.0
+      },
+      "description": "Venta 3 ambientes con cochera en villa urquiza \nmuy luminoso  \n\ndestacados:\n   amplio y súper luminoso\n   living-comedor con salida al balcón\n   cocina independiente + lavadero\n   baño completo\n toilette\n   cochera en edificio.\n   Zona residencial, cercana a comercios y medios de transporte\n\ndescripción:\n\nmuy buen departamento de tres ambientes con cochera, ubicado en una zona residencial y tranquila de villa urquiza.\n\nLa unidad se destaca por su excelente luminosidad natural y una distribución cómoda y funcional. El living comedor es amplio, con buena entrada de luz y ventilación, ideal para el uso diario.\n\nLa cocina es independiente, práctica y bien resuelta, con espacio de guardado y buena circulación. Cuenta con un lavadero independiente contiguo, que aporta mayor comodidad y orden al sector de servicio.\n\nDispone de dos dormitorios, ambos con placares y buenas dimensiones. Además, ofrece baño completo y toilette de recepción, un diferencial muy valorado para la vida diaria y para recibir visitas.\n\nLa cochera suma un valor agregado importante, brindando comodidad y seguridad.\n\nUbicado cerca de medios de transporte, comercios, espacios verdes y servicios, en un barrio con excelente calidad de vida y sostenida demanda.\n\nColdwell banker destino (+54 /86\nnota: la información gráfica y escrita contenida en el presente aviso es meramente a título estimativo y no forma parte de ningún tipo de documentación contractual. Las medidas y superficies definitivas surgirán del título de propiedad del inmueble referido. Asimismo, los importes de tasas, servicios y expensas indicados están sujetos a verificación. El valor del inmueble indicado en el presente puede ser modificado sin previo aviso. Operación supeditada a que el propietario cumplimente con la reg.2371 coti.\n\n 2025 coldwell banker. Todos los derechos reservados. Coldwell banker y los logotipos de coldwell banker son marcas de servicio de propiedad de coldwell banker real estate llc. El sistema coldwell banker está compuesto por oficinas propias de propiedad de una subsidiaria de anywhere advisors llc y por oficinas adheridas al sistema coldwell banker que son de propiedad y operación independientes. En cumplimiento con la normativa vigente, los asistentes no ejercen el corretaje inmobiliario. La intermediación y conclusión de las operaciones inmobiliarias es desarrollada por martilleros y corredores públicos. Esta oficina inmobiliaria se encuentra a cargo de federico godi bienes raices cucicba 9650 libro 2 tomo 2 folio 60? Guillermo torry cpmclz 3095 libro vi folio 312 adheridos al sistema coldwell banker destino,  arenales 1901, recolecta, caba.",
+      "images": [
+        "https://www.argenprop.com/static-content/08465881/abc0864d-8400-49bf-9429-f03cae20391a_u_small.jpg",
+        "https://www.argenprop.com/static-content/08465881/f5fabf82-53fc-427a-b619-2554c2e3ed48_u_small.jpg",
+        "https://www.argenprop.com/static-content/08465881/ce208d93-3ef7-4fb7-8878-f90f7ec351b6_u_small.jpg",
+        "https://www.argenprop.com/static-content/08465881/b4a24188-29c8-46b5-9f9a-bfd40cb81817_u_small.jpg",
+        "https://www.argenprop.com/static-content/08465881/ddfbabac-32b9-4e88-8487-b7935e03c89d_u_small.jpg",
+        "https://www.argenprop.com/static-content/08465881/615a7fae-89f5-4081-9eb8-d2390ec33680_u_small.jpg",
+        "https://www.argenprop.com/static-content/08465881/adf9ea16-82ea-4e39-8c4f-76ad3266181a_u_small.jpg",
+        "https://www.argenprop.com/static-content/08465881/28364ba4-c642-444e-9e59-8b6a55f3e618_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--18856480",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:55.798882+00:00",
+      "features": []
+    },
+    {
+      "id": "18873022",
+      "title": "Departamento en Venta en Belgrano, Capital Federal",
+      "price_usd": 169000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Belgrano",
+        "street_address": "CIUDAD DE LA PAZ 2200",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 63.0
+      },
+      "description": "Corredor responsable: silvia vergara cpi 7783 / cmcpsi 6672 - \ncontacto: viviana salama\ndepartamento 3 ambientes belgrano ciudad de la paz capital federal - apto crédito\n\nun refugio urbano que combina diseño, comodidad y la energía vibrante de belgrano te espera. Este departamento de 63 m² es más que un espacio, es tu nuevo punto de encuentro con la ciudad.\n\nUbicación privilegiada\n\n• emplazado en el corazón de belgrano, sobre ciudad de la paz\n• piso 14 con vistas panorámicas de la ciudad\n• excelente conectividad con subte d y metrobus. A 100m de cabildo y juramento\n• rodeado de restaurantes, bares y servicios\n\ndistribución inteligente\n\n• superficie total de 63 m² completamente aprovechables\n• diseño de 3 ambientes con distribución funcional\n• 2 dormitorios con placares empotrados\n• living luminoso con acceso a balcón\n• cocina separada \n• baño completo y toilette de recepción\n• lavadero independiente\n\ncomodidades \n\n• seguridad 24/7 con portón automático\n• 4 ascensores de última generación\n• espacio guardacoche incluido sin mover autos ni dejar llaves\n• permite mascotas\n• rampa de acceso\n\nservicios conectados\n\n• electricidad y gas natural\n• accesibilidad total\n• zona residencial con infraestructura completa\n\nun departamento que no es solo un espacio, sino el escenario de tus próximos capítulos de vida. Ideal para profesionales, parejas o inversores que buscan calidad de vida en uno de los barrios más emblemáticos de buenos aires.\nRau s.R.L. No ejerce el corretaje inmobiliario. El presente sitio web es una plataforma en donde cada oficina inmobiliaria independiente que contrata los servicios re/max puede publicar las propiedades a su cargo. Cada oficina es de propiedad y gestión independiente, por lo que rau s.R.L. No interviene en los datos de la publicación, en la operación inmobiliaria, ni en la confección y/o firma del boleto de compraventa y/o escritura y/o contrato de alquiler. En cumplimiento de las leyes vigentes que regulan el corretaje inmobiliario, ley nacional 25.028, ley 22.802 de lealtad comercial, ley 24.240 de defensa al consumidor, las normas del código civil y comercial de la nación y constitucionales, los agentes/gestores no ejercen el corretaje inmobiliario. Todas las operaciones inmobiliarias son objeto de intermediación y conclusión por parte del corredor público inmobiliario colegiado a cargo de la publicación, cuyos datos se exhiben en la presente. La presente publicación describe las características esenciales del inmueble, debiéndose consultar al corredor público inmobiliario responsable de la operación por la eventual actualización de las medidas, descripciones arquitectónicas y funcionales, valores de expensas, servicios, impuestos, precios y demás información, cuyos valores son aproximados.\nEl inmueble no es accesible para personas con discapacidades físicas.\nComprá la casa que querés! No la que podés. Accedé a un préstamo por hasta el 30% del valor de esta propiedad. Simulá tu cuota en lendar",
+      "images": [
+        "https://www.argenprop.com/static-content/22037881/bec179b8-9691-49d8-929a-815afdaf424e_u_small.jpg",
+        "https://www.argenprop.com/static-content/22037881/36305ef3-735f-4a2a-82dc-41386a1c8177_u_small.jpg",
+        "https://www.argenprop.com/static-content/22037881/4d96668b-db83-429f-8764-b4f3eb1cf475_u_small.jpg",
+        "https://www.argenprop.com/static-content/22037881/a3cca1aa-5cd2-468e-a166-7fbd071f11dd_u_small.jpg",
+        "https://www.argenprop.com/static-content/22037881/00b6aa9c-e7aa-4928-a7f9-b848080d1bf4_u_small.jpg",
+        "https://www.argenprop.com/static-content/22037881/1ae3daca-7b1f-4748-9f22-2327318e51f5_u_small.jpg",
+        "https://www.argenprop.com/static-content/22037881/c9cd63b8-64e5-4c40-b744-cd15c449cd4d_u_small.jpg",
+        "https://www.argenprop.com/static-content/22037881/c7414ebb-85eb-4bdc-a9b8-95cc7e5aae7b_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-belgrano-3-ambientes--18873022",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:55.800885+00:00",
+      "features": []
+    },
+    {
+      "id": "18930905",
+      "title": "Departamento en Venta en Saavedra, Capital Federal",
+      "price_usd": 163000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Saavedra",
+        "street_address": "Zapiola al 4200",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 48.0
+      },
+      "description": "Hermoso departamento de 3 ambientes con cochera\nal ingresar a esta propiedad, te recibirá  un amplio living comedor con una cocina integrada, equipada con muebles hechos a medida, y con salida a un balcón corrido de generosas medidas, que abarca 3,78m2, perfecto para disfrutar de momentos al aire libre.\n\nLa propiedad cuenta con 2 dormitorios, donde el principal disfruta de una orientación frontal, mientras que el segundo dormitorio está ubicado en la parte trasera, ambos ofrecen una luminosidad excepcional.\nEl baño completo cuenta con bañera y ventilación al exterior, proporcionando comodidad y funcionalidad.\nPara tu confort, este departamento dispone de 2 aires acondicionados, uno en el dormitorio principal y otro en el living comedor, asegurando un ambiente agradable en cualquier época del año.\nAdemás, se incluye una baulera para almacenamiento adicional y una pequeña terraza en el último piso, ideal para relajarse y disfrutar de vistas panorámicas.\nNo pierdas la oportunidad de adquirir esta propiedad única que combina comodidad, estilo y funcionalidad en una ubicación privilegiada. Contáctanos para más información o para programar una visita!\n\nNo dejes pasar esta oportunidad y haz de este hermoso departamento tu nuevo hogar!",
+      "images": [
+        "https://www.argenprop.com/static-content/50903981/598fb239-57b8-4dea-8ac9-87c973b4243b_u_small.jpg",
+        "https://www.argenprop.com/static-content/50903981/30da8367-ecde-48d6-8c22-ad9fb457ceaf_u_small.jpg",
+        "https://www.argenprop.com/static-content/50903981/a6e27ae9-91ab-43c9-91e3-78e1127c7d38_u_small.jpg",
+        "https://www.argenprop.com/static-content/50903981/ecf29eef-a62b-41fc-8e09-cd903c74806c_u_small.jpg",
+        "https://www.argenprop.com/static-content/50903981/6f73fc81-ff74-407b-8668-2cbbec9656ce_u_small.jpg",
+        "https://www.argenprop.com/static-content/50903981/76d446b2-a691-4ac2-b176-d76095f58dd4_u_small.jpg",
+        "https://www.argenprop.com/static-content/50903981/ae8fae77-6670-49ec-9a7c-c3e4c3aa0456_u_small.jpg",
+        "https://www.argenprop.com/static-content/50903981/9f85510d-eab2-4beb-abaf-95673fe9cfe7_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-saavedra-3-ambientes--18930905",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:55.818884+00:00",
+      "features": []
+    },
+    {
+      "id": "18939741",
+      "title": "Departamento en Venta en Belgrano, Capital Federal",
+      "price_usd": 177900.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Belgrano",
+        "street_address": "Blanco Encalada 1700",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 4,
+        "bedrooms": 3,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 62.0
+      },
+      "description": "Corredor responsable: laura palini csm 2733 / cpi 7752 - \ncontacto: nicolás medina kelly\nventa de dpto 4 amb. En piso alto con vista abierta en belgrano, barrio chino - permuta\n\nbaño completo y toilette de recpeción. Cochera cubierta. \n\nUbicado en el piso 16 de un edificio de sólida construcción, este luminoso y espacioso departamento de 4 ambientes ofrece una combinación ideal de comodidad, funcionalidad y excelente ubicación. Situado en el corazón del barrio chino, dentro del tradicional barrio de belgrano, brinda fácil acceso a múltiples medios de transporte, centros comerciales, parques y una variada oferta gastronómica y cultural.\n\nLa propiedad cuenta con un living-comedor amplio y luminoso, con salida a un balcón que permite disfrutar de una vista panorámica abierta, lo que realza la sensación de amplitud y tranquilidad. \n\nLa cocina es independiente, con excelente ventilación y espacio de guardado, ideal para quienes valoran la funcionalidad en la vida cotidiana.\n\nDispone de tres cómodos dormitorios, un baño completo y un toilette de recepción, perfectos para el confort de una familia o para quienes buscan espacios bien distribuidos.\n\nSu orientación privilegiada y ubicación en un piso alto garantizan excelente luminosidad natural durante todo el día.\n\nFinanciación exclusiva para clientes remax hasta el 30% del valor de la propiedad\nsimulador del crédito en \n\nen cumplimiento de las normas legales aplicables, informamos que los agentes no ejercen el corretaje inmobiliario. Todas las operaciones inmobiliarias son concluidas por los corredores matriculados responsables en cada oficina. Maria laura palini - csm 2733 / cpi 7752\n\n llamame y vamos a verlo\n\nmudate a la vida que queres\nrau s.R.L. No ejerce el corretaje inmobiliario. El presente sitio web es una plataforma en donde cada oficina inmobiliaria independiente que contrata los servicios re/max puede publicar las propiedades a su cargo. Cada oficina es de propiedad y gestión independiente, por lo que rau s.R.L. No interviene en los datos de la publicación, en la operación inmobiliaria, ni en la confección y/o firma del boleto de compraventa y/o escritura y/o contrato de alquiler. En cumplimiento de las leyes vigentes que regulan el corretaje inmobiliario, ley nacional 25.028, ley 22.802 de lealtad comercial, ley 24.240 de defensa al consumidor, las normas del código civil y comercial de la nación y constitucionales, los agentes/gestores no ejercen el corretaje inmobiliario. Todas las operaciones inmobiliarias son objeto de intermediación y conclusión por parte del corredor público inmobiliario colegiado a cargo de la publicación, cuyos datos se exhiben en la presente. La presente publicación describe las características esenciales del inmueble, debiéndose consultar al corredor público inmobiliario responsable de la operación por la eventual actualización de las medidas, descripciones arquitectónicas y funcionales, valores de expensas, servicios, impuestos, precios y demás información, cuyos valores son aproximados.\nEl inmueble no es accesible para personas con discapacidades físicas.\nComprá la casa que querés! No la que podés. Accedé a un préstamo por hasta el 30% del valor de esta propiedad. Simulá tu cuota en lendar",
+      "images": [
+        "https://www.argenprop.com/static-content/14793981/dc64d7db-710e-45ec-b01a-461db1a22657_u_small.jpg",
+        "https://www.argenprop.com/static-content/14793981/4458de24-d50e-4712-89cf-f84c626c8aaa_u_small.jpg",
+        "https://www.argenprop.com/static-content/14793981/b82df2c0-8ea3-47f3-8179-77d175ef1755_u_small.jpg",
+        "https://www.argenprop.com/static-content/14793981/f1299c74-c863-4b26-bc19-9ac7138eeec1_u_small.jpg",
+        "https://www.argenprop.com/static-content/14793981/1c87726c-a661-42dc-8306-1d6c64f7f9a3_u_small.jpg",
+        "https://www.argenprop.com/static-content/14793981/31f2b96e-2d3f-418d-8f13-031c5dc3a532_u_small.jpg",
+        "https://www.argenprop.com/static-content/14793981/94c8655b-6521-4ab8-af2e-7424bbc24f2c_u_small.jpg",
+        "https://www.argenprop.com/static-content/14793981/fbf96661-6ba5-43f8-a5a4-48acef78a9ca_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-belgrano-4-ambientes--18939741",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:55.821036+00:00",
+      "features": []
+    },
+    {
+      "id": "18958852",
+      "title": "Departamento en Venta en Villa Urquiza, Capital Federal",
+      "price_usd": 159800.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Villa Urquiza",
+        "street_address": "Galván 3000",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 64.0
+      },
+      "description": "Corredor responsable: rmx 1 sas - lucas norman cucicba 8008 / cmcpsi 6743 - \ncontacto: maximiliano d\\'onofrio\nse vende departamento tipo ph en primer piso al frente por escalera 3 ambientes con 1 baño y toillete \n\nespacio guardacoche aparte del valor, consultar por cubierta o descubierta\n \nposible financiacion del 50% a convenir\n\nsup. Cubierta 64 m2 mas dos balcones 10mts\ntotales 74\n\nedificio con gas tanto en cocina como calefaccion\n\n\ncada unidad cuenta cocina con horno marca clever y anafe 4 hornallas, alacenas y bajo mesada, pudiendo definir a gusto si colocar una isla, barra, integrarla o separarla del living comedor. Mucha luz natural y mucha tranquilidad.\nEs una obra media con una superficie cubierta total de 529.95 m2 sobre un terreno de 231\nm2. La misma está proyectada en planta baja y 2 pisos, en planta baja hay 2 departamentos con\npatio y en 1° piso son 4 departamentos en dúplex, con terrazas accesibles.\nCada departamento, tiene entre 65 y 90m2, con cocina integrada al living-comedor,\nhabitaciones y baños completos. Todos los departamentos tienen espacios semi cubiertos\n(balcones) y espacios descubiertos como patios en planta baja y terrazas en planta alta.\nLas terminaciones, son con pintura texturada en fachada, en el interior con pintura látex, y\ncerramiento de herrería en balcones. Los acabados en pisos serán de porcelanato y cerámico en\nbaños. Las aberturas serán línea modena con vidrio simple. \n\nEste complejo de 6 unidades en el corazon de villa urquiza esta diseñado con el mix justo  de la privacidad de una casa en lote propio y con la seguridad y comodidad de estar en un complejo para poder disfrutar en paz con tu familia \n\nesta obra está ubicada en la calle galvan 3000 entre las calles quesada y av. Congreso de\nla ciudad autónoma de buenos aires, con un rapido acceso a general paz y centros comerciales.\n\nAlgunas de las imágenes publicadas fueron generadas con inteligencia artificial y tienen como objetivo mostrar una posible ambientación del espacio. Estas representaciones son orientativas y buscan ayudar a imaginar distintas alternativas de uso y distribución.\n\nLa flexibilidad financiera es clave aquí, con un 30% de anticipo y 24 cuotas ajustadas en pesos por cac o en dólares a monto fijo. \nConsulte por su financiacion a medida.\nConstructor que se desarrolla en la zona el cual puede ver obras terminadas y comprobar la trayectoria\n\nentrega marzo 2026\n\n¡Tu hogar y tu inversión ideal te esperan a solo un click!\nContactanos\nrau s.R.L. No ejerce el corretaje inmobiliario. El presente sitio web es una plataforma en donde cada oficina inmobiliaria independiente que contrata los servicios re/max puede publicar las propiedades a su cargo. Cada oficina es de propiedad y gestión independiente, por lo que rau s.R.L. No interviene en los datos de la publicación, en la operación inmobiliaria, ni en la confección y/o firma del boleto de compraventa y/o escritura y/o contrato de alquiler. En cumplimiento de las leyes vigentes que regulan el corretaje inmobiliario, ley nacional 25.028, ley 22.802 de lealtad comercial, ley 24.240 de defensa al consumidor, las normas del código civil y comercial de la nación y constitucionales, los agentes/gestores no ejercen el corretaje inmobiliario. Todas las operaciones inmobiliarias son objeto de intermediación y conclusión por parte del corredor público inmobiliario colegiado a cargo de la publicación, cuyos datos se exhiben en la presente. La presente publicación describe las características esenciales del inmueble, debiéndose consultar al corredor público inmobiliario responsable de la operación por la eventual actualización de las medidas, descripciones arquitectónicas y funcionales, valores de expensas, servicios, impuestos, precios y demás información, cuyos valores son aproximados.\nEl inmueble no es accesible para personas con discapacidades físicas.\nComprá la casa que querés! No la que podés. Accedé a un préstamo por hasta el 30% del valor de esta propiedad. Simulá tu cuota en lendar",
+      "images": [
+        "https://www.argenprop.com/static-content/25885981/7e0e125b-8f55-400d-becd-eed805c94ae7_u_small.jpg",
+        "https://www.argenprop.com/static-content/25885981/0e58e282-b53b-4b2c-9ddf-1ffeab082f09_u_small.jpg",
+        "https://www.argenprop.com/static-content/25885981/1f9085c3-60e0-4983-826d-c6307a220f51_u_small.jpg",
+        "https://www.argenprop.com/static-content/25885981/3d396708-6d93-4cf0-96e7-797ab492639b_u_small.jpg",
+        "https://www.argenprop.com/static-content/25885981/ca18fadc-c279-4cd7-ae78-ce5d830e39a8_u_small.jpg",
+        "https://www.argenprop.com/static-content/25885981/59d172e7-d45d-4cec-8ee5-333f7a37a574_u_small.jpg",
+        "https://www.argenprop.com/static-content/25885981/da8dee65-5ffe-4993-8a7f-dcbab37f09a0_u_small.jpg",
+        "https://www.argenprop.com/static-content/25885981/d544e2e3-27b9-4297-a31e-af8df2c1390d_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-villa-urquiza-3-ambientes--18958852",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:58.037166+00:00",
+      "features": []
+    },
+    {
+      "id": "18990806",
+      "title": "Departamento en Venta en Belgrano, Capital Federal",
+      "price_usd": 169990.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Belgrano",
+        "street_address": "Avenida Monroe 2100",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 41.82
+      },
+      "description": "Corredor responsable: graciela menazzi cmcpdjlm 841 / cpi 6344 - \ncontacto: ariel jorge stern\ndepartamento al frente en el barrio de belgrano, de 3 ambientes\n\nse destaca por su amplitud y luminosidad. \n\nAl ingresar, encontramos un amplio living-comedor que se extiende hacia un balcón corrido al frente, proporcionando un espacio adicional para disfrutar del aire libre y vistas a la calle.\n\nLa cocina completa está separada del living-comedor, lo que brinda privacidad y funcionalidad. Está equipada con muebles bajo mesada y alacenas, y cuenta con un lavadero independiente, ideal para realizar tareas domésticas de manera cómoda y separada.\n\nEl departamento dispone de dos dormitorios, ambos con placard empotrado. Uno de ellos tiene salida directa al balcón, lo que le otorga una excelente iluminación natural. \n\nEl baño completo tiene una ventana, lo que asegura ventilación y una sensación de mayor amplitud.\n\nTambién cuenta con un espacio de cochera en planta baja.\n\nEste departamento, ubicado en una de las zonas más cotizadas de buenos aires, ofrece un equilibrio entre confort, practicidad y luminosidad.\n\nDatos útiles:\n- transporte: ferrocarril ramal mitre estación belgrano c. Colectivos líneas: 41, 57, 60, 64, 68, 107, 161, 168, 194, entre otros. Cercano al metrobus de av. Cabildo. Subte línea d estaciones congreso de tucumán y juramento.\n- Educación: escuela dr. Juán balestra, escuela técnica no. 28, escuela normal superior no. 10,  buenos aires christian school, colegio nuestra señora del sagrado corazón.\n- Salud: hospital general de agudos pirovano, fleni\n- esparcimiento: plaza alberti, parque barrancas de belgrano, plaza manuel belgrano, paseo barrio chino. A metros de av. Cabildo con variedad de locales comerciales y gastronómicos.\n\n \n\nSi tienes que vender para comprar, podemos ayudarte y realizar la operación simultánea\nbeneficio para clientes\nsi te falta hasta un 30% del valor de esta propiedad, te ofrecemos solicitar un préstamo a través de lendar, servicio exclusivo para clientes re/max. Hace la simulación de tu cuota a través del simulador.\n\n\nRau s.R.L. No ejerce el corretaje inmobiliario. El presente sitio web es una plataforma en donde cada oficina inmobiliaria independiente que contrata los servicios re/max puede publicar las propiedades a su cargo. Cada oficina es de propiedad y gestión independiente, por lo que rau s.R.L. No interviene en los datos de la publicación, en la operación inmobiliaria, ni en la confección y/o firma del boleto de compraventa y/o escritura y/o contrato de alquiler. En cumplimiento de las leyes vigentes que regulan el corretaje inmobiliario, ley nacional 25.028, ley 22.802 de lealtad comercial, ley 24.240 de defensa al consumidor, las normas del código civil y comercial de la nación y constitucionales, los agentes/gestores no ejercen el corretaje inmobiliario. Todas las operaciones inmobiliarias son objeto de intermediación y conclusión por parte del corredor público inmobiliario colegiado a cargo de la publicación, cuyos datos se exhiben en la presente. La presente publicación describe las características esenciales del inmueble, debiéndose consultar al corredor público inmobiliario responsable de la operación por la eventual actualización de las medidas, descripciones arquitectónicas y funcionales, valores de expensas, servicios, impuestos, precios y demás información, cuyos valores son aproximados.\nEl inmueble no es accesible para personas con discapacidades físicas.\nComprá la casa que querés! No la que podés. Accedé a un préstamo por hasta el 30% del valor de esta propiedad. Simulá tu cuota en lendar",
+      "images": [
+        "https://www.argenprop.com/static-content/60809981/e39c5763-9284-45d1-8e5b-0a688564429c_u_small.jpg",
+        "https://www.argenprop.com/static-content/60809981/6bd2b71c-eedb-48ce-99ab-aae68ef10107_u_small.jpg",
+        "https://www.argenprop.com/static-content/60809981/a428f273-7371-403b-8415-28d7c1e51d41_u_small.jpg",
+        "https://www.argenprop.com/static-content/60809981/1a7d101d-18fc-433e-b839-fe41aac2586d_u_small.jpg",
+        "https://www.argenprop.com/static-content/60809981/d13d927e-d2ae-4b7e-a62e-931de6157d3e_u_small.jpg",
+        "https://www.argenprop.com/static-content/60809981/a1e6969e-b4b8-4bff-9d3d-aa39b1cee7b3_u_small.jpg",
+        "https://www.argenprop.com/static-content/60809981/ff59f623-63bc-4203-8eac-1d51559d3784_u_small.jpg",
+        "https://www.argenprop.com/static-content/60809981/2f6e7a0e-2105-4d80-8da5-8c62489030b4_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-belgrano-3-ambientes--18990806",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:58.051116+00:00",
+      "features": []
+    },
+    {
+      "id": "18697662",
+      "title": "Departamento en Venta en Saavedra, Capital Federal",
+      "price_usd": 169000.0,
+      "price_currency": "USD",
+      "location": {
+        "neighborhood": "Saavedra",
+        "street_address": "QUINTANA 4600, Piso 1",
+        "city": "Capital Federal"
+      },
+      "property_details": {
+        "rooms": 3,
+        "bedrooms": 2,
+        "bathrooms": null,
+        "surface_total_m2": null,
+        "surface_covered_m2": 70.0
+      },
+      "description": "Venta de departamento 3 ambientes en saavedra, capital federal            \n            \n            \n        \n\nunidad apto crédito\ncocina semi integrada con barra desayunadora\nliving comedor.\nDos dormitorios\nbaño completo.\nBalcón.\nBaulera\ntoilette de recepción\nconexión para lavarropas\n\namenities: solarium , parrilla , duchas en ultimo piso.\n\nEdificio de 6 pisos ubicado en saavedra, ubicación privilegiada, zona de gran expansión comercial, de servicios y de transporte. Excelente oferta educativa en la zona.  El entorno es excelente!. Todas las unidades tienen excelente ventilación y luz, con balcones o terrazas, con detalles de calidad y diseño.Terminaciones de primera calidad.\n\nCielorrasos en palieres y pb, hormigón visto. Cielorrasos en unidades en yeso.Carpinterías aluminio anodizado.Puertas de acero en chapa y cerradura de seguridad, puertas interiores placa con marcosmetálicos.Frentes de placard (interiores opcionales).Herrajes de primera calidad.Balcones con barandas en vidrio de seguridad.Revestimiento baños en porcelanato primera marca.Muebles de cocina bajo mesada en melanina. (Alacenas y muebles adicionales opcionales).Grifería y sanitarios marca piazza, fv o similar.Pileta de cocina acero inoxidable. Mesadas de mármol.Energía solar para provisión de agua caliente + termotanque a gas en azotea.Pre instalación aires acondicionados.Canalización y cañería vacías para telefonía y cable tv-internet.\n\nLepore propiedades almagro tel. / \n\nLepore propiedades s.A. Cuit : -9 c.U.C.I.C.B.A. Matrícula nº 931 (sucursales caballito - palermo - centro)\n\naviso legal: las descripciones arquitectónicas y funcionales, valores de expensas, impuestos y servicios, fotos y medidas de este inmueble son aproximados. Los datos fueron proporcionados por el propietario y pueden no estar actualizados a la hora de la visualización de este aviso por lo cual pueden arrojar inexactitudes y discordancias con las que surgen de los las facturas, títulos y planos legales del inmueble. El interesado deberá realizar las verificaciones respectivas previamente a la realización de cualquier operación, requiriendo por sí o sus profesionales las copias necesarias de la documentación que corresponda. Venta supeditada al cumplimiento por parte del propietario de los requisitos de la resolución general nº 2371 de la afip (pedido de coti)esta unidad es apta para personas con movilidad reducida.",
+      "images": [
+        "https://www.argenprop.com/static-content/26679681/dc3b56b2-6f21-4c4f-8e9c-b3c384ce2e25_u_small.jpg",
+        "https://www.argenprop.com/static-content/26679681/187d3d83-8bb5-402c-b86a-424e427dc955_u_small.jpg",
+        "https://static1.sosiva451.com/95679681/2e2ac5fb-baee-461b-bca9-29791fcd4512_u_small.jpg",
+        "https://www.argenprop.com/static-content/26679681/9c9468b2-7660-44c7-a425-701a49d112f0_u_small.jpg",
+        "https://static1.sosiva451.com/95679681/26e7f378-0b5c-4f90-ab1c-8b29ef4c2cc3_u_small.jpg",
+        "https://www.argenprop.com/static-content/26679681/11708364-51ad-4b3f-ae92-823f93194dda_u_small.jpg",
+        "https://static1.sosiva451.com/95679681/82c4c03b-e2bc-4bab-9858-af95ade2ed7a_u_small.jpg",
+        "https://www.argenprop.com/static-content/26679681/6124bfef-6584-4b8e-b616-70ee450cf067_u_small.jpg"
+      ],
+      "url": "https://www.argenprop.com/departamento-en-venta-en-saavedra-3-ambientes--18697662",
+      "source": "argenprop",
+      "scraped_at": "2026-02-14T00:06:58.069116+00:00",
+      "features": []
+    }
+  ]
+}
