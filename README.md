@@ -167,3 +167,64 @@ If ArgenProp changes their HTML structure, update only those constants.
 
 The scraper waits 1–2 seconds between page requests and includes standard browser
 headers. Do not reduce `REQUEST_DELAY_SECONDS` below 1 second.
+
+---
+
+### ZonaProp Scraper
+
+```bash
+pip install -r requirements.txt
+python scrapers/zonaprop_scraper.py
+```
+
+Reads `config/search_filters.json` and builds the ZonaProp search URL automatically:
+
+```
+https://www.zonaprop.com.ar/departamentos-venta-belgrano-nunez-saavedra-villa-urquiza-
+  desde-2-hasta-3-habitaciones-mas-de-1-garage-desde-150000-hasta-180000-dolar.html
+```
+
+Output is written to `output/zonaprop_results_YYYY-MM-DD_HH-MM-SS.json`.
+
+**ZonaProp URL translation rules** (in `scrapers/zonaprop_scraper.py`):
+
+| Config field | ZonaProp URL segment |
+|---|---|
+| `neighborhoods: ["Belgrano", "Núñez"]` | `belgrano-nunez` (dash-separated, no `-o-`) |
+| `bedrooms: [2, 3]` | `desde-2-hasta-3-habitaciones` (range format) |
+| `price: {min: 150000, max: 180000, currency: "USD"}` | `desde-150000-hasta-180000-dolar` (range in URL) |
+| `parking_spots_min: 1` | `mas-de-1-garage` (minimum threshold) |
+
+**Scraper-only setting** (not in config): set `FETCH_DETAIL_PAGES = True` at the top of
+`zonaprop_scraper.py` to fetch each property's detail page for full description and
+amenities list. Off by default — significantly increases runtime.
+
+#### Output Schema
+
+Same format as ArgenProp (see Output Schema section above). The `source` field will be
+`"zonaprop"` instead of `"argenprop"`.
+
+#### Technical Notes
+
+**Cloudflare protection & `cloudscraper`**
+
+ZonaProp is behind Cloudflare's bot protection with JavaScript challenges. Plain `requests`
+returns 403 ("Just a moment..."). The scraper uses the `cloudscraper` library, which
+automatically handles Cloudflare's verification challenge without needing a headless browser.
+
+**ZonaProp HTML structure (verified Feb 2026)**
+
+- Listing cards use `data-qa="posting PROPERTY"` with `data-id` attribute for property ID
+- Property URL is in `data-to-posting` attribute on the card (not in `<a href>`)
+- Features are concatenated into a single text node: `"65 m² tot.3 amb.2 dorm.1 baño1 coch."`
+- Images are in `[data-qa='POSTING_CARD_GALLERY']` as plain `<img src="...">` from `imgar.zonapropcdn.com`
+- CSS selectors defined as `SEL_*` constants at the top of the file for easy maintenance
+
+**Argentine price format**
+
+Same as ArgenProp: `.` = thousands, `,` = decimal. Handled by `parse_price()` function.
+
+**Polite scraping**
+
+Same delays and retry strategy as ArgenProp: 1–2 seconds between page requests, exponential
+backoff on failures, up to 3 retries per page.

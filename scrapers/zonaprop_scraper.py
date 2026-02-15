@@ -16,6 +16,7 @@ Output:
     output/zonaprop_results_YYYY-MM-DD_HH-MM-SS.json
 """
 
+import base64
 import json
 import logging
 import os
@@ -52,6 +53,11 @@ MAX_RETRIES = 3
 # Set to True to fetch each individual property page for full description
 # and amenities list. Significantly increases runtime (1-2s delay per listing).
 FETCH_DETAIL_PAGES = False
+
+# Fetch each property's detail page to extract coordinates (lat/lng).
+# ZonaProp encodes them as Base64 strings in inline JS: const mapLatOf = "..."
+# Adds ~1-2s per listing. Set to False to skip coordinate enrichment.
+FETCH_COORDINATES = True
 
 # ── CSS SELECTORS ─────────────────────────────────────────────────────────────
 # All parsing targets defined here — update these when ZonaProp changes their HTML.
@@ -464,6 +470,7 @@ def parse_single_card(item: Tag) -> dict | None:
             "neighborhood": neighborhood,
             "street_address": None,   # not exposed on ZonaProp listing cards
             "city": city or "Buenos Aires",
+            "coordinates": None,   # populated by fetch_detail_page when FETCH_COORDINATES = True
         },
         "property_details": property_details,
         "description": description,
@@ -533,6 +540,20 @@ def fetch_detail_page(
                     el.get_text(strip=True) for el in els if el.get_text(strip=True)
                 ]
                 break
+
+    # Coordinates — ZonaProp encodes lat/lng as Base64 strings in inline JS variables:
+    #   const mapLatOf = "LTM0LjU3...";  →  base64-decode  →  "-34.570999..."
+    #   const mapLngOf = "LTU4LjUw...";  →  base64-decode  →  "-58.505000..."
+    lat_m = re.search(r'const mapLatOf\s*=\s*"([^"]+)"', resp.text)
+    lng_m = re.search(r'const mapLngOf\s*=\s*"([^"]+)"', resp.text)
+    if lat_m and lng_m:
+        try:
+            listing["location"]["coordinates"] = {
+                "latitude":  float(base64.b64decode(lat_m.group(1)).decode()),
+                "longitude": float(base64.b64decode(lng_m.group(1)).decode()),
+            }
+        except Exception as exc:
+            log.debug("Could not decode ZonaProp coordinates: %s", exc)
 
     return listing
 
@@ -700,9 +721,12 @@ def main() -> None:
     raw_listings, total_results = scrape_all_pages(scraper, config)
     log.info("Raw listings collected: %d", len(raw_listings))
 
-    # Phase 2: optionally enrich with detail page data
-    if FETCH_DETAIL_PAGES:
-        log.info("Fetching detail pages for %d listings...", len(raw_listings))
+    # Phase 2: fetch detail pages for coordinates and/or full description/features
+    if FETCH_COORDINATES or FETCH_DETAIL_PAGES:
+        log.info(
+            "Fetching detail pages for %d listings (coordinates=%s, details=%s)...",
+            len(raw_listings), FETCH_COORDINATES, FETCH_DETAIL_PAGES,
+        )
         for i, listing in enumerate(raw_listings, 1):
             log.info("Detail page %d/%d: %s", i, len(raw_listings), listing.get("url", ""))
             raw_listings[i - 1] = fetch_detail_page(scraper, listing, delay_range)

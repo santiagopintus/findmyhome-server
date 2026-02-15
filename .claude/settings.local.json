@@ -6,7 +6,8 @@
       "Bash(find:*)",
       "WebSearch",
       "Bash(pip install:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(del \"C:\\\\Users\\\\Santi Pintus\\\\Documents\\\\000-Developing\\\\Personal Projects\\\\encontremos-casa\\\\probe_coords.py\")"
     ]
   }
 }

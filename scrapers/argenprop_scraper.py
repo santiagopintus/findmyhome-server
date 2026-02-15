@@ -50,6 +50,11 @@ MAX_RETRIES = 3            # default; overridden by config.scraping.max_retries
 # and amenities list. Significantly increases runtime (1-2s delay per listing).
 FETCH_DETAIL_PAGES = False
 
+# Fetch each property's detail page to extract coordinates (lat/lng).
+# ArgenProp embeds them as data-latitude / data-longitude on the Leaflet container.
+# Adds ~1-2s per listing. Set to False to skip coordinate enrichment.
+FETCH_COORDINATES = True
+
 # ── CSS SELECTORS ─────────────────────────────────────────────────────────────
 # All parsing targets defined here — update these when ArgenProp changes their HTML.
 SEL_LISTING_ITEM   = "div.listing__item, article.listing__item"
@@ -582,6 +587,7 @@ def parse_single_card(item: Tag) -> dict | None:
             "neighborhood": neighborhood,
             "street_address": street_address,
             "city": city or "Buenos Aires",
+            "coordinates": None,   # populated by fetch_detail_page when FETCH_COORDINATES = True
         },
         "property_details": property_details,
         "description": description,
@@ -649,6 +655,19 @@ def fetch_detail_page(session: requests.Session, listing: dict) -> dict:
                     el.get_text(strip=True) for el in els if el.get_text(strip=True)
                 ]
                 break
+
+    # Coordinates — ArgenProp renders a Leaflet map whose container div carries
+    # data-latitude / data-longitude using Argentine comma-decimal format.
+    # Example: data-latitude="-34,56535" → -34.56535
+    leaflet = soup.select_one("div.leaflet-container[data-latitude]")
+    if leaflet:
+        try:
+            listing["location"]["coordinates"] = {
+                "latitude":  float(leaflet["data-latitude"].replace(",", ".")),
+                "longitude": float(leaflet["data-longitude"].replace(",", ".")),
+            }
+        except (KeyError, ValueError) as exc:
+            log.debug("Could not parse Leaflet coordinates: %s", exc)
 
     return listing
 
@@ -823,9 +842,12 @@ def main() -> None:
     raw_listings, total_results = scrape_all_pages(session, config)
     log.info("Raw listings collected: %d", len(raw_listings))
 
-    # Phase 2: optionally enrich with detail page data
-    if FETCH_DETAIL_PAGES:
-        log.info("Fetching detail pages for %d listings...", len(raw_listings))
+    # Phase 2: fetch detail pages for coordinates and/or full description/features
+    if FETCH_COORDINATES or FETCH_DETAIL_PAGES:
+        log.info(
+            "Fetching detail pages for %d listings (coordinates=%s, details=%s)...",
+            len(raw_listings), FETCH_COORDINATES, FETCH_DETAIL_PAGES,
+        )
         for i, listing in enumerate(raw_listings, 1):
             log.info("Detail page %d/%d: %s", i, len(raw_listings), listing.get("url", ""))
             raw_listings[i - 1] = fetch_detail_page(session, listing)
