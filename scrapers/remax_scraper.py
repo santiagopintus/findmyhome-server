@@ -492,12 +492,14 @@ def build_output(
     listings: list[dict],
     total_items: int | None,
     search_criteria: dict,
+    search_url: str | None = None,
 ) -> dict:
     return {
         "metadata": {
             "total_results": total_items,
             "scraped_at": datetime.now(timezone.utc).isoformat(),
             "search_criteria": search_criteria,
+            "search_url": search_url,
             "listings_count": len(listings),
         },
         "listings": listings,
@@ -559,7 +561,7 @@ def main() -> None:
     log.info("After deduplication: %d unique listings", len(unique))
 
     # Phase 4: build and save output
-    output   = build_output(unique, total_items, config)
+    output   = build_output(unique, total_items, config, search_url=preview_url)
     filepath = save_output(output)
 
     log.info("=== Done. %d listings saved to %s ===", len(unique), filepath)

@@ -210,7 +210,7 @@ def build_zonaprop_url(config: dict, page: int = 1) -> str:
       neighborhoods: ["Belgrano", "Núñez"]            → "belgrano-nunez"  (no -o-)
       bedrooms: [2, 3]                                → "desde-2-hasta-3-habitaciones"
       parking_spots_min: 1                            → "mas-de-1-garage"
-      price: {min:150000, max:180000, currency:"USD"} → "desde-150000-hasta-180000-dolar"
+      price: {min:150000, max:180000, currency:"USD"} → "150000-180000-dolar"
     """
     loc      = config.get("location", {})
     price    = config.get("price", {})
@@ -238,7 +238,7 @@ def build_zonaprop_url(config: dict, page: int = 1) -> str:
     price_max = int(price.get("max", 0))
     if currency == "usd":
         if price_min > 0 and price_max > 0:
-            segments.append(f"desde-{price_min}-hasta-{price_max}-dolar")
+            segments.append(f"{price_min}-{price_max}-dolar")
         elif price_max > 0:
             segments.append(f"menos-{price_max}-dolar")
         elif price_min > 0:
@@ -661,12 +661,14 @@ def build_output(
     listings: list[dict],
     total_results: int | None,
     search_criteria: dict,
+    search_url: str | None = None,
 ) -> dict:
     return {
         "metadata": {
             "total_results": total_results,
             "scraped_at": datetime.now(timezone.utc).isoformat(),
             "search_criteria": search_criteria,
+            "search_url": search_url,
             "listings_count": len(listings),
         },
         "listings": listings,
@@ -721,17 +723,7 @@ def main() -> None:
     raw_listings, total_results = scrape_all_pages(scraper, config)
     log.info("Raw listings collected: %d", len(raw_listings))
 
-    # Phase 2: fetch detail pages for coordinates and/or full description/features
-    if FETCH_COORDINATES or FETCH_DETAIL_PAGES:
-        log.info(
-            "Fetching detail pages for %d listings (coordinates=%s, details=%s)...",
-            len(raw_listings), FETCH_COORDINATES, FETCH_DETAIL_PAGES,
-        )
-        for i, listing in enumerate(raw_listings, 1):
-            log.info("Detail page %d/%d: %s", i, len(raw_listings), listing.get("url", ""))
-            raw_listings[i - 1] = fetch_detail_page(scraper, listing, delay_range)
-
-    # Phase 3: filter by price/currency (client-side verification)
+    # Phase 2: filter by price/currency before touching detail pages
     filtered = [l for l in raw_listings if filter_listing(l, config)]
     skipped  = len(raw_listings) - len(filtered)
     if skipped:
@@ -741,12 +733,22 @@ def main() -> None:
         )
     log.info("After price filter: %d listings", len(filtered))
 
-    # Phase 4: deduplicate
+    # Phase 3: deduplicate before touching detail pages
     unique = deduplicate(filtered)
     log.info("After deduplication: %d unique listings", len(unique))
 
+    # Phase 4: fetch detail pages only for listings that survived filtering
+    if FETCH_COORDINATES or FETCH_DETAIL_PAGES:
+        log.info(
+            "Fetching detail pages for %d listings (coordinates=%s, details=%s)...",
+            len(unique), FETCH_COORDINATES, FETCH_DETAIL_PAGES,
+        )
+        for i, listing in enumerate(unique, 1):
+            log.info("Detail page %d/%d: %s", i, len(unique), listing.get("url", ""))
+            unique[i - 1] = fetch_detail_page(scraper, listing, delay_range)
+
     # Phase 5: build and save output
-    output   = build_output(unique, total_results, config)
+    output   = build_output(unique, total_results, config, search_url=preview_url)
     filepath = save_output(output)
 
     log.info("=== Done. %d listings saved to %s ===", len(unique), filepath)

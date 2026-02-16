@@ -621,17 +621,21 @@ def parse_listing_cards(soup: BeautifulSoup) -> list[dict]:
 
 # ── DETAIL PAGE ENRICHMENT (optional) ─────────────────────────────────────────
 
-def fetch_detail_page(session: requests.Session, listing: dict) -> dict:
+def fetch_detail_page(
+    session: requests.Session,
+    listing: dict,
+    delay_range: list[float] = [1.0, 2.0],
+) -> dict:
     """
     Fetch the individual property page to enrich description and features.
-    Only called when FETCH_DETAIL_PAGES is True.
+    Only called when FETCH_DETAIL_PAGES or FETCH_COORDINATES is True.
     Modifies the listing dict in-place; always returns it (even on failure).
     """
     url = listing.get("url")
     if not url:
         return listing
 
-    time.sleep(random.uniform(*REQUEST_DELAY_SECONDS))
+    time.sleep(random.uniform(delay_range[0], delay_range[1]))
     resp = fetch_with_retry(session, url)
     if resp is None:
         return listing
@@ -781,12 +785,14 @@ def build_output(
     listings: list[dict],
     total_results: int | None,
     search_criteria: dict,
+    search_url: str | None = None,
 ) -> dict:
     return {
         "metadata": {
             "total_results": total_results,
             "scraped_at": datetime.now(timezone.utc).isoformat(),
             "search_criteria": search_criteria,
+            "search_url": search_url,
             "listings_count": len(listings),
         },
         "listings": listings,
@@ -819,11 +825,12 @@ def main() -> None:
     price_cfg    = config.get("price", {})
     scraping_cfg = config.get("scraping", {})
 
-    price_min  = price_cfg.get("min", 0)
-    price_max  = price_cfg.get("max", 0)
-    currency   = price_cfg.get("currency", "USD")
-    max_pages  = scraping_cfg.get("max_pages", 10)
+    price_min   = price_cfg.get("min", 0)
+    price_max   = price_cfg.get("max", 0)
+    currency    = price_cfg.get("currency", "USD")
+    max_pages   = scraping_cfg.get("max_pages", 10)
     max_retries = int(scraping_cfg.get("max_retries", MAX_RETRIES))
+    delay_range = scraping_cfg.get("delay_between_requests_seconds", [1.0, 2.0])
 
     preview_url = build_argenprop_url(config, page=1)
     log.info("=== ArgenProp Scraper starting ===")
@@ -850,7 +857,7 @@ def main() -> None:
         )
         for i, listing in enumerate(raw_listings, 1):
             log.info("Detail page %d/%d: %s", i, len(raw_listings), listing.get("url", ""))
-            raw_listings[i - 1] = fetch_detail_page(session, listing)
+            raw_listings[i - 1] = fetch_detail_page(session, listing, delay_range)
 
     # Phase 3: filter by price/currency (client-side verification)
     filtered = [l for l in raw_listings if filter_listing(l, config)]
@@ -864,7 +871,7 @@ def main() -> None:
     log.info("After deduplication: %d unique listings", len(unique))
 
     # Phase 5: build and save output
-    output = build_output(unique, total_results, config)
+    output = build_output(unique, total_results, config, search_url=preview_url)
     filepath = save_output(output)
 
     log.info("=== Done. %d listings saved to %s ===", len(unique), filepath)
