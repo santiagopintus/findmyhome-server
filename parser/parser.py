@@ -170,6 +170,7 @@ def main() -> None:
         "listings": listings,
     }
 
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")
     output_path = os.path.join(OUTPUT_DIR, f"parsed_listings_{timestamp}.json")
 

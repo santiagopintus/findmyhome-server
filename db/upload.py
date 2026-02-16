@@ -36,7 +36,7 @@ log = logging.getLogger(__name__)
 ROOT_DIR    = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PARSED_GLOB = os.path.join(ROOT_DIR, "parsed", "*.json")
 
-DB_NAME         = "encontremos_casa"
+DB_NAME         = "earthbnb"
 COLLECTION_NAME = "properties"
 
 
