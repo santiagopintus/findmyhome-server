@@ -7,7 +7,12 @@
       "WebSearch",
       "Bash(pip install:*)",
       "Bash(python:*)",
-      "Bash(del \"C:\\\\Users\\\\Santi Pintus\\\\Documents\\\\000-Developing\\\\Personal Projects\\\\encontremos-casa\\\\probe_coords.py\")"
+      "Bash(del \"C:\\\\Users\\\\Santi Pintus\\\\Documents\\\\000-Developing\\\\Personal Projects\\\\encontremos-casa\\\\probe_coords.py\")",
+      "Bash(curl:*)",
+      "Bash(cd:*)",
+      "WebFetch(domain:www.zonaprop.com.ar)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
