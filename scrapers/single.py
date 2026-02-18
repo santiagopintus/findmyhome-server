@@ -20,6 +20,7 @@ from bs4 import BeautifulSoup
 import scrapers.argenprop_scraper as _ap
 import scrapers.zonaprop_scraper as _zp
 import scrapers.remax_scraper as _rm
+import scrapers.meli_scraper as _ml
 
 
 # ── PER-SCRAPER FUNCTIONS ──────────────────────────────────────────────────────
@@ -203,12 +204,184 @@ def _scrape_remax(url: str) -> dict | None:
     return _rm.parse_listing(raw)
 
 
+def _parse_meli_detail(html: str, url: str) -> dict | None:
+    """
+    Parse a MercadoLibre property detail page (server-rendered HTML, no JSON blobs).
+
+    Verified selectors (Feb 2026):
+    - Title:    h1
+    - Price:    [data-andes-money-amount] text (e.g. "US$170.000"), aria-label fallback
+    - Location: .ui-vip-location → "STREET, NEIGHBORHOOD, CITY, PROVINCE"
+    - Specs:    tr.andes-table__row th+td key-value pairs
+    - Images:   img src containing "D_NQ" and "mlstatic.com" (excludes SVG icons)
+    """
+    # ── Property ID from URL ─────────────────────────────────────────────────
+    id_m = re.search(r"MLA-?(\d+)", url)
+    property_id = f"MLA{id_m.group(1)}" if id_m else None
+
+    soup = BeautifulSoup(html, "lxml")
+
+    # ── Title ────────────────────────────────────────────────────────────────
+    title: str | None = None
+    h1 = soup.select_one("h1")
+    if h1:
+        title = h1.get_text(strip=True) or None
+
+    # ── Price ─────────────────────────────────────────────────────────────────
+    price_usd: float | None = None
+    price_currency: str | None = None
+    price_el = soup.select_one("[data-andes-money-amount]")
+    if price_el:
+        raw_price = price_el.get_text(strip=True)
+        if any(s in raw_price for s in ("US$", "U$S", "USD")):
+            price_currency = "USD"
+        elif "$" in raw_price:
+            price_currency = "ARS"
+        numeric = re.sub(r"[^\d.,]", "", raw_price).replace(".", "").replace(",", ".")
+        try:
+            price_usd = float(numeric) if numeric else None
+        except ValueError:
+            pass
+    # Fallback: aria-label="170000 dólares"
+    if price_usd is None:
+        m = re.search(r'aria-label="([\d]+)\s+d[oó]lares"', html)
+        if m:
+            price_usd = float(m.group(1))
+            price_currency = "USD"
+
+    # ── Location from .ui-vip-location ───────────────────────────────────────
+    neighborhood: str | None = None
+    street_addr:  str | None = None
+    city_raw = "Buenos Aires"
+    loc_el = soup.select_one(".ui-vip-location")
+    if loc_el:
+        loc_text = loc_el.get_text(separator=", ", strip=True)
+        cleaned  = re.sub(
+            r"Ubicaci[oó]n e informaci[oó]n de la zona\s*",
+            "", loc_text, flags=re.IGNORECASE,
+        ).strip()
+        parts = [p.strip() for p in cleaned.split(",") if p.strip()]
+        if len(parts) >= 3:
+            street_addr  = parts[0] or None
+            neighborhood = parts[1] or None
+            city_raw     = parts[2] or "Buenos Aires"
+        elif len(parts) == 2:
+            neighborhood = parts[0] or None
+            city_raw     = parts[1] or "Buenos Aires"
+        elif len(parts) == 1:
+            neighborhood = parts[0]
+
+    # ── Coordinates from Schema.org JSON-LD ──────────────────────────────────
+    coordinates: dict | None = None
+    for tag in soup.find_all("script", {"type": "application/ld+json"}):
+        try:
+            d = json.loads(tag.string or "")
+        except (json.JSONDecodeError, TypeError):
+            continue
+        geo = d.get("geo") or {}
+        lat = geo.get("latitude")
+        lng = geo.get("longitude")
+        if lat and lng:
+            try:
+                coordinates = {"latitude": float(lat), "longitude": float(lng)}
+            except (TypeError, ValueError):
+                pass
+            break
+
+    # ── Property details from spec table rows ─────────────────────────────────
+    # Each row: <th> key </th> <td> value </td>
+    specs: dict[str, str] = {}
+    for row in soup.select("tr.andes-table__row"):
+        th = row.select_one("th")
+        td = row.select_one("td")
+        if th and td:
+            specs[th.get_text(strip=True)] = td.get_text(strip=True)
+
+    def _spec_float(key: str) -> float | None:
+        val = specs.get(key)
+        if not val:
+            return None
+        m2 = re.search(r"([\d.,]+)", val)
+        return _ml._safe_float(m2.group(1)) if m2 else None
+
+    def _spec_int(key: str) -> int | None:
+        val = specs.get(key)
+        if not val:
+            return None
+        m2 = re.search(r"(\d+)", val)
+        return int(m2.group(1)) if m2 else None
+
+    rooms           = _spec_int("Ambientes")
+    bedrooms        = _spec_int("Dormitorios")
+    bathrooms       = _spec_int("Ba\u00f1os")
+    surface_total   = _spec_float("Superficie total")
+    surface_covered = _spec_float("Superficie cubierta")
+
+    # ── Description ──────────────────────────────────────────────────────────
+    description: str | None = None
+    for sel in _ml.SEL_DETAIL_DESCRIPTION:
+        el = soup.select_one(sel)
+        if el:
+            text = el.get_text(separator=" ", strip=True)
+            if text:
+                description = text
+                break
+
+    # ── Images — only real listing photos (D_NQ prefix, not SVG icons) ───────
+    images: list[str] = []
+    seen: set[str] = set()
+    for img in soup.find_all("img"):
+        src = img.get("data-src") or img.get("src") or ""
+        if "mlstatic.com" in src and "D_NQ" in src and src not in seen:
+            seen.add(src)
+            images.append(src)
+
+    if not property_id:
+        return None
+
+    return {
+        "id":             property_id,
+        "title":          title,
+        "price_usd":      price_usd,
+        "price_currency": price_currency,
+        "location": {
+            "neighborhood":   neighborhood,
+            "street_address": street_addr,
+            "city":           city_raw,
+            "coordinates":    coordinates,
+        },
+        "property_details": {
+            "rooms":              rooms,
+            "bedrooms":           bedrooms,
+            "bathrooms":          bathrooms,
+            "surface_total_m2":   surface_total,
+            "surface_covered_m2": surface_covered,
+        },
+        "description": description,
+        "images":      images,
+        "url":         url,
+        "source":      "meli",
+        "scraped_at":  datetime.now(timezone.utc).isoformat(),
+        "features":    [],
+    }
+
+
+def _scrape_meli(url: str) -> dict | None:
+    scraper = _ml.make_scraper()
+    resp = _ml.fetch_with_retry(scraper, url)
+    if resp is None:
+        return None
+    return _parse_meli_detail(resp.text, url)
+
+
 # ── DOMAIN DISPATCH TABLE ──────────────────────────────────────────────────────
 
 VALID_DOMAINS: dict[str, callable] = {
-    "www.argenprop.com":   _scrape_argenprop,
-    "www.zonaprop.com.ar": _scrape_zonaprop,
-    "www.remax.com.ar":    _scrape_remax,
+    "www.argenprop.com":                  _scrape_argenprop,
+    "www.zonaprop.com.ar":                _scrape_zonaprop,
+    "www.remax.com.ar":                   _scrape_remax,
+    "inmuebles.mercadolibre.com.ar":      _scrape_meli,
+    "departamento.mercadolibre.com.ar":   _scrape_meli,
 }
 
 
