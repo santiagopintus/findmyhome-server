@@ -16,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from api.db import create_client, get_collection
 from api.routes.properties import router as properties_router
+from api.routes.scrape import router as scrape_router
 
 
 @asynccontextmanager
@@ -43,6 +44,7 @@ app.add_middleware(
 )
 
 app.include_router(properties_router)
+app.include_router(scrape_router)
 
 
 @app.get("/health", tags=["health"])
