@@ -1,11 +1,12 @@
 """
 api/routes/properties.py — CRUD endpoints for the `properties` collection.
 
-GET    /properties               List with filters + pagination
-GET    /properties/{fuente}/{id} Single property
-POST   /properties               Insert one
-PUT    /properties/{fuente}/{id} Partial update
-DELETE /properties/{fuente}/{id} Delete one
+GET    /properties                          List with filters + pagination
+GET    /properties/{fuente}/{id}            Single property
+POST   /properties                          Insert one
+PUT    /properties/{fuente}/{id}            Partial update
+DELETE /properties/{fuente}/{id}            Delete one
+PATCH  /properties/{fuente}/{id}/favourite  Mark / unmark as favourite
 """
 
 import math
@@ -15,6 +16,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from motor.motor_asyncio import AsyncIOMotorCollection
 
 from api.models import (
+    FavouriteUpdate,
     PaginatedProperties,
     Property,
     PropertyCreate,
@@ -49,6 +51,7 @@ def _build_filter(
     ambientes:   int | None,
     dormitorios: int | None,
     flags:       list[str],
+    favorito:    bool | None,
 ) -> dict:
     conditions: list[dict] = []
 
@@ -76,6 +79,9 @@ def _build_filter(
         if flag in FLAG_KEYS:
             conditions.append({f"flags.{flag}": True})
 
+    if favorito is not None:
+        conditions.append({"favorito": favorito})
+
     return {"$and": conditions} if conditions else {}
 
 
@@ -85,16 +91,17 @@ def _build_filter(
 async def list_properties(
     collection: Annotated[AsyncIOMotorCollection, Depends(col)],
     barrio:      str | None = Query(None, description="Neighbourhood, partial match"),
-    fuente:      str | None = Query(None, description="argenprop | zonaprop | remax"),
+    fuente:      str | None = Query(None, description="argenprop | zonaprop | remax | meli"),
     precio_min:  float | None = Query(None, description="Minimum price in USD"),
     precio_max:  float | None = Query(None, description="Maximum price in USD"),
     ambientes:   int | None = Query(None, description="Number of rooms (ambientes)"),
     dormitorios: int | None = Query(None, description="Number of bedrooms"),
     flags:       list[str] = Query(default=[], description="Flag names that must be true"),
+    favorito:    bool | None = Query(None, description="true → only favourites, false → only non-favourites"),
     page:        int = Query(1, ge=1),
     page_size:   int = Query(20, ge=1, le=100, alias="pageSize"),
 ):
-    query  = _build_filter(barrio, fuente, precio_min, precio_max, ambientes, dormitorios, flags)
+    query  = _build_filter(barrio, fuente, precio_min, precio_max, ambientes, dormitorios, flags, favorito)
     total  = await collection.count_documents(query)
     skip   = (page - 1) * page_size
     cursor = collection.find(query).skip(skip).limit(page_size)
@@ -177,3 +184,22 @@ async def delete_property(
     result = await collection.delete_one({"id": id, "fuente": fuente})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Property not found")
+
+
+# ── FAVOURITE ─────────────────────────────────────────────────────────────────
+
+@router.patch("/{fuente}/{id}/favourite", response_model=Property)
+async def set_favourite(
+    fuente: str,
+    id:     str,
+    body:   FavouriteUpdate,
+    collection: Annotated[AsyncIOMotorCollection, Depends(col)],
+):
+    result = await collection.find_one_and_update(
+        {"id": id, "fuente": fuente},
+        {"$set": {"favorito": body.favorito}},
+        return_document=True,
+    )
+    if not result:
+        raise HTTPException(status_code=404, detail="Property not found")
+    return _clean(result)

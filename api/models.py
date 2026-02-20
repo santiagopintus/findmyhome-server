@@ -2,7 +2,7 @@
 api/models.py — Pydantic schemas for request validation and response serialisation.
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 # ── NESTED MODELS ─────────────────────────────────────────────────────────────
@@ -52,6 +52,7 @@ class Property(BaseModel):
     ubicacion:       Ubicacion | None = None
     detalles:        Detalles  | None = None
     flags:           Flags     | None = None
+    favorito:        bool = False
 
 
 class PropertyCreate(BaseModel):
@@ -69,6 +70,7 @@ class PropertyCreate(BaseModel):
     ubicacion:       Ubicacion | None = None
     detalles:        Detalles  | None = None
     flags:           Flags     | None = None
+    favorito:        bool = False
 
 
 class PropertyUpdate(BaseModel):
@@ -84,6 +86,11 @@ class PropertyUpdate(BaseModel):
     ubicacion:       Ubicacion | None = None
     detalles:        Detalles  | None = None
     flags:           Flags     | None = None
+
+
+class FavouriteUpdate(BaseModel):
+    """Body for PATCH /properties/{fuente}/{id}/favourite."""
+    favorito: bool
 
 
 # ── PAGINATED RESPONSE ────────────────────────────────────────────────────────

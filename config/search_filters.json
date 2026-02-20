@@ -24,7 +24,7 @@
   },
 
   "features": {
-    "bedrooms": [2, 3],
+    "bedrooms": [3],
     "parking_spots_min": 1
   },
 
