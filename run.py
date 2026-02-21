@@ -14,10 +14,11 @@ ROOT = Path(__file__).parent
 PYTHON = sys.executable
 
 SCRAPERS = [
-    ("argenprop", ROOT / "scrapers" / "argenprop_scraper.py"),
-    ("zonaprop",  ROOT / "scrapers" / "zonaprop_scraper.py"),
-    ("remax",     ROOT / "scrapers" / "remax_scraper.py"),
-    ("meli",      ROOT / "scrapers" / "meli_scraper.py"),
+    ("argenprop",  ROOT / "scrapers" / "argenprop_scraper.py"),
+    ("zonaprop",   ROOT / "scrapers" / "zonaprop_scraper.py"),
+    ("remax",      ROOT / "scrapers" / "remax_scraper.py"),
+    ("meli",       ROOT / "scrapers" / "meli_scraper.py"),
+    ("properati",  ROOT / "scrapers" / "properati_scraper.py"),
 ]
 
 PARSER   = ROOT / "parser" / "parser.py"

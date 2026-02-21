@@ -202,8 +202,12 @@ def build_meli_url(config: dict, page: int = 1) -> str:
     neighborhoods     = loc.get("neighborhoods", [])
     neighborhood_slug = "-o-".join(normalize_neighborhood_slug(n) for n in neighborhoods)
 
-    # Bedrooms min → "mas-de-2-dormitorios"
-    bedrooms     = sorted(features.get("bedrooms", [2]))
+    # Bedrooms min → "mas-de-3-dormitorios"
+    # Use bedrooms list if provided; otherwise fall back to dormitorios_min.
+    bedrooms = sorted(features.get("bedrooms", []))
+    if not bedrooms:
+        dormitorios_min_val = int(features.get("dormitorios_min", 2))
+        bedrooms = [dormitorios_min_val]
     min_bedrooms = min(bedrooms)
     bedroom_seg  = f"mas-de-{min_bedrooms}-dormitorios"
 
@@ -879,7 +883,10 @@ def _enrich_from_item(listing: dict, item: dict) -> None:
 # ── FILTER AND DEDUPLICATION ──────────────────────────────────────────────────
 
 def filter_listing(listing: dict, config: dict) -> bool:
-    """Client-side price/currency verification."""
+    """
+    Client-side verification: price/currency, minimum bedrooms,
+    and minimum covered surface area.
+    """
     price_cfg = config.get("price", {})
     currency  = price_cfg.get("currency", "USD")
     price_min = price_cfg.get("min", 0)
@@ -890,7 +897,24 @@ def filter_listing(listing: dict, config: dict) -> bool:
     price = listing.get("price_usd")
     if price is None:
         return False
-    return price_min <= price <= price_max
+    if not (price_min <= price <= price_max):
+        return False
+
+    features = config.get("features", {})
+
+    dormitorios_min = int(features.get("dormitorios_min", 0))
+    if dormitorios_min > 0:
+        bedrooms_val = (listing.get("property_details") or {}).get("bedrooms")
+        if bedrooms_val is not None and bedrooms_val < dormitorios_min:
+            return False
+
+    superficie_min = float(features.get("superficie_cubierta_min", 0))
+    if superficie_min > 0:
+        covered = (listing.get("property_details") or {}).get("surface_covered_m2")
+        if covered is not None and covered < superficie_min:
+            return False
+
+    return True
 
 
 def deduplicate(listings: list[dict]) -> list[dict]:

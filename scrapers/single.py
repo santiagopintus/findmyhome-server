@@ -21,6 +21,7 @@ import scrapers.argenprop_scraper as _ap
 import scrapers.zonaprop_scraper as _zp
 import scrapers.remax_scraper as _rm
 import scrapers.meli_scraper as _ml
+import scrapers.properati_scraper as _pt
 
 
 # ── PER-SCRAPER FUNCTIONS ──────────────────────────────────────────────────────
@@ -137,7 +138,7 @@ def _parse_zonaprop_detail(html: str, url: str) -> dict | None:
     for sel in _zp.SEL_DETAIL_DESCRIPTION:
         el = soup.select_one(sel)
         if el:
-            full = el.get_text(separator=" ", strip=True)
+            full = el.get_text(separator="\n", strip=True)
             if full:
                 description = full
                 break
@@ -374,6 +375,51 @@ def _scrape_meli(url: str) -> dict | None:
     return _parse_meli_detail(resp.text, url)
 
 
+def _scrape_properati(url: str) -> dict | None:
+    """
+    Scrape a single Properati property detail page.
+    Tries __NEXT_DATA__ first, then Schema.org JSON-LD, then HTML selectors.
+    """
+    scraper = _pt.make_scraper()
+    resp    = _pt.fetch_with_retry(scraper, url)
+    if resp is None:
+        return None
+
+    # Bootstrap a minimal listing dict and enrich it from the detail page
+    id_m    = re.search(r"/(\d+)/?(?:\?|$)|[-_](\d+)/?(?:\?|$)", url)
+    prop_id = None
+    if id_m:
+        prop_id = id_m.group(1) or id_m.group(2)
+
+    listing: dict = {
+        "id":             prop_id,
+        "title":          None,
+        "price_usd":      None,
+        "price_currency": None,
+        "location": {
+            "neighborhood":   None,
+            "street_address": None,
+            "city":           "Buenos Aires",
+            "coordinates":    None,
+        },
+        "property_details": {
+            "rooms":              None,
+            "bedrooms":           None,
+            "bathrooms":          None,
+            "surface_total_m2":   None,
+            "surface_covered_m2": None,
+        },
+        "description": None,
+        "images":      [],
+        "url":         url,
+        "source":      "properati",
+        "scraped_at":  __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
+        "features":    [],
+    }
+
+    return _pt.fetch_detail_page(scraper, listing, [1.0, 2.0])
+
+
 # ── DOMAIN DISPATCH TABLE ──────────────────────────────────────────────────────
 
 VALID_DOMAINS: dict[str, callable] = {
@@ -382,6 +428,7 @@ VALID_DOMAINS: dict[str, callable] = {
     "www.remax.com.ar":                   _scrape_remax,
     "inmuebles.mercadolibre.com.ar":      _scrape_meli,
     "departamento.mercadolibre.com.ar":   _scrape_meli,
+    "www.properati.com.ar":               _scrape_properati,
 }
 
 

@@ -58,7 +58,7 @@ and any other string fields of the listing.
 | balcon         | text contains `"balcon"` OR `"balcón"`                             | false   |
 | enConstruccion | text contains `"de pozo"` OR `"emprendimiento"` OR `"a construir"` | false   |
 | aptoCredito    | text contains `"apto crédito"` OR `"apto credito"` OR `"crédito"`  | false   |
-| cochera        | text contains `"cochera"` OR `"coche"`                             | false   |
+| cochera        | text contains `"cochera"` OR `"coche"` AND NOT `"sin cochera"`    | false   |
 
 All flags default to `false`; set to `true` only when a keyword match is found.
 

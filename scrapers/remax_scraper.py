@@ -69,15 +69,14 @@ NEIGHBORHOOD_IDS = {
     "Nuñez":         "25022@Nunez",   # alternate accent
 }
 
-# Fixed filters matching the project's property/operation criteria
+# Fixed filters matching the project's property/operation criteria.
+# parking spaces and min covered surface are set dynamically in build_remax_url().
 FIXED_PARAMS = {
     "sort":               "-createdAt",
     "in:operationId":     "1",                      # sale
     "in:eStageId":        "0,1,2,3,4",
     "eq:entrepreneurship":"false",
     "in:typeId":          "9,10,11,1,2,3,4,5,6,7,8,12",  # all property types
-    "eq:parkingSpaces":   "1",
-    "gte:dimensionCovered":"60",
     "eq:aptCredit":       "true",
     "landingPath":        "",
     "filterCount":        "7",
@@ -213,13 +212,22 @@ def build_remax_url(config: dict, page: int = 0) -> str:
     pricein   = f"1:0:{price_max}"
 
     # Rooms — RE/MAX uses totalRooms which equals ambientes (rooms including living)
-    # Config has bedrooms [2,3]; in RE/MAX totalRooms = bedrooms + 1 for standard apartments
+    # Config has bedrooms [2,3]; in RE/MAX totalRooms = bedrooms + 1 for standard apartments.
+    # Fall back to dormitorios_min if bedrooms list is not specified.
     bedrooms = sorted(features.get("bedrooms", []))
+    if not bedrooms:
+        dormitorios_min_val = int(features.get("dormitorios_min", 0))
+        if dormitorios_min_val > 0:
+            bedrooms = [dormitorios_min_val]
     if bedrooms:
         total_rooms = [str(b + 1) for b in bedrooms]
         rooms_param = ",".join(total_rooms)
     else:
         rooms_param = ""
+
+    # Parking spaces and min covered surface come from config (dynamic)
+    parking_min = int(features.get("parking_spots_min", 0))
+    superficie_cubierta_min = float(features.get("superficie_cubierta_min", 0))
 
     params: dict = {
         "page":     str(page),
@@ -230,6 +238,10 @@ def build_remax_url(config: dict, page: int = 0) -> str:
     }
     if rooms_param:
         params["in:totalRooms"] = rooms_param
+    if parking_min > 0:
+        params["eq:parkingSpaces"] = str(parking_min)
+    if superficie_cubierta_min > 0:
+        params["gte:dimensionCovered"] = str(int(superficie_cubierta_min))
 
     base = f"{BASE_URL}/listings/buy"
     query = "&".join(f"{k}={v}" for k, v in params.items())
@@ -387,7 +399,10 @@ def parse_listing(raw: dict) -> dict | None:
 # ── FILTERS AND DEDUPLICATION ─────────────────────────────────────────────────
 
 def filter_listing(listing: dict, config: dict) -> bool:
-    """Keep only listings matching the configured currency and price range."""
+    """
+    Keep only listings matching the configured currency, price range,
+    minimum bedrooms, and minimum covered surface area.
+    """
     price_cfg = config.get("price", {})
     currency  = price_cfg.get("currency", "USD")
     price_min = price_cfg.get("min", 0)
@@ -398,7 +413,24 @@ def filter_listing(listing: dict, config: dict) -> bool:
     price = listing.get("price_usd")
     if price is None:
         return False
-    return price_min <= price <= price_max
+    if not (price_min <= price <= price_max):
+        return False
+
+    features = config.get("features", {})
+
+    dormitorios_min = int(features.get("dormitorios_min", 0))
+    if dormitorios_min > 0:
+        bedrooms_val = (listing.get("property_details") or {}).get("bedrooms")
+        if bedrooms_val is not None and bedrooms_val < dormitorios_min:
+            return False
+
+    superficie_min = float(features.get("superficie_cubierta_min", 0))
+    if superficie_min > 0:
+        covered = (listing.get("property_details") or {}).get("surface_covered_m2")
+        if covered is not None and covered < superficie_min:
+            return False
+
+    return True
 
 
 def deduplicate(listings: list[dict]) -> list[dict]:

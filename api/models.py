@@ -53,6 +53,7 @@ class Property(BaseModel):
     detalles:        Detalles  | None = None
     flags:           Flags     | None = None
     favorito:        bool = False
+    visitado:        bool = False
 
 
 class PropertyCreate(BaseModel):
@@ -71,6 +72,7 @@ class PropertyCreate(BaseModel):
     detalles:        Detalles  | None = None
     flags:           Flags     | None = None
     favorito:        bool = False
+    visitado:        bool = False
 
 
 class PropertyUpdate(BaseModel):
@@ -91,6 +93,11 @@ class PropertyUpdate(BaseModel):
 class FavouriteUpdate(BaseModel):
     """Body for PATCH /properties/{fuente}/{id}/favourite."""
     favorito: bool
+
+
+class VisitadoUpdate(BaseModel):
+    """Body for PATCH /properties/{fuente}/{id}/visited."""
+    visitado: bool
 
 
 # ── PAGINATED RESPONSE ────────────────────────────────────────────────────────

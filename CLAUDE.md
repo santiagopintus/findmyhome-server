@@ -79,6 +79,7 @@ parsed/                    # normalized JSON before DB upload (auto-generated)
 | `PUT` | `/properties/{fuente}/{id}` | Partial update |
 | `DELETE` | `/properties/{fuente}/{id}` | Delete |
 | `PATCH` | `/properties/{fuente}/{id}/favourite` | Toggle `favorito` boolean |
+| `PATCH` | `/properties/{fuente}/{id}/visited` | Toggle `visitado` boolean |
 | `POST` | `/scrape` | Scrape a single URL on demand |
 | `POST` | `/scrape/batch` | Run all 4 scrapers with custom config (~60-120s) |
 
@@ -90,7 +91,7 @@ Database: `earthbnb` / Collection: `properties`
 
 Unique index: `(id, fuente)`
 
-Key fields: `id`, `fuente`, `titulo`, `precioUsd`, `imagenes`, `url`, `extraidoEn`, `ubicacion.barrio`, `detalles.ambientes/dormitorios/banos/superficieTotal/superficieCubierta`, `flags.porEscalera/balcon/enConstruccion/aptoCredito/cochera`, `favorito`
+Key fields: `id`, `fuente`, `titulo`, `precioUsd`, `imagenes`, `url`, `extraidoEn`, `ubicacion.barrio`, `detalles.ambientes/dormitorios/banos/superficieTotal/superficieCubierta`, `flags.porEscalera/balcon/enConstruccion/aptoCredito/cochera`, `favorito`, `visitado`
 
 ## Companion Repo
 

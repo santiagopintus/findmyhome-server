@@ -21,6 +21,11 @@ Usage examples:
     # Remove by flag
     python db/remove.py --flag enConstruccion
 
+    # Remove by ambientes and/or dormitorios
+    python db/remove.py --ambientes 3
+    python db/remove.py --dormitorios 2
+    python db/remove.py --ambientes 3 --dormitorios 2
+
     # Combine conditions (AND logic)
     python db/remove.py --fuente zonaprop --no-coords
 
@@ -105,6 +110,12 @@ def build_filter(args: argparse.Namespace) -> dict:
     if args.flag:
         conditions.append({f"flags.{args.flag}": True})
 
+    if args.ambientes is not None:
+        conditions.append({"detalles.ambientes": args.ambientes})
+
+    if args.dormitorios is not None:
+        conditions.append({"detalles.dormitorios": args.dormitorios})
+
     if not conditions:
         log.error("No filter conditions specified. Pass at least one condition.")
         log.error("Run with --help to see available options.")
@@ -159,6 +170,10 @@ def main() -> None:
                         help="Remove listings with precioUsd > USD")
     parser.add_argument("--flag",         choices=FLAG_KEYS, metavar="FLAG",
                         help=f"Remove listings where a flag is true: {FLAG_KEYS}")
+    parser.add_argument("--ambientes",    type=int, metavar="N",
+                        help="Remove listings with exactly N ambientes")
+    parser.add_argument("--dormitorios",  type=int, metavar="N",
+                        help="Remove listings with exactly N dormitorios")
     parser.add_argument("--yes", "-y",    action="store_true",
                         help="Skip confirmation prompt")
 

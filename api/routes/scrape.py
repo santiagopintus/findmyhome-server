@@ -129,7 +129,9 @@ class _PriceConfig(BaseModel):
 
 class _FeaturesConfig(BaseModel):
     bedrooms: list[int] = []
+    dormitorios_min: int = 0
     parking_spots_min: int = 0
+    superficie_cubierta_min: float = 0
 
 
 class _ScrapingConfig(BaseModel):

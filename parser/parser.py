@@ -109,17 +109,21 @@ def _build_search_text(listing: dict) -> str:
 
 def compute_flags(listing: dict) -> dict:
     text = _build_search_text(listing)
+    cochera_opcional = bool(re.search(r"(cochera|guardacoche)\s+(es\s+)?opcional", text))
+    no_credito = bool(re.search(r"no\s+(es\s+)?apto\s+(al\s+|para\s+)?cr[eé]dito|sin\s+cr[eé]dito", text))
 
     return {
-        "porEscalera": "por escalera" in text and "ascensor" not in text,
-        "balcon": bool(re.search(r"balc[oó]n", text)),
+        "porEscalera": "por escalera" in text,
+        "balcon": bool(re.search(r"balc[oó]n", text)) and not re.search(r"sin balc[oó]n", text),
         "enConstruccion": (
             "de pozo" in text
             or "emprendimiento" in text
             or "a construir" in text
         ),
-        "aptoCredito": bool(re.search(r"apto\s+cr[eé]dito|cr[eé]dito", text)),
-        "cochera": "cochera" in text or "coche" in text,
+        "aptoCredito": not no_credito and bool(re.search(r"apto\s+cr[eé]dito|cr[eé]dito", text)),
+        "cocheraOpcional": cochera_opcional,
+        "cochera": not cochera_opcional and ("cochera" in text or "coche" in text and "sin cochera" not in text),
+        "reservado": bool(re.search(r"reservad[ao]", text)),
     }
 
 

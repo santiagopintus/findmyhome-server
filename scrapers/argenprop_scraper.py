@@ -242,7 +242,12 @@ def build_argenprop_url(config: dict, page: int = 1) -> str:
     path_segments = [prop_slug, "venta", neighborhoods_slug]
 
     # Bedrooms: [2, 3] → "2-dormitorios-o-3-dormitorios"
+    # Fall back to dormitorios_min if bedrooms list is not specified
     bedrooms = features.get("bedrooms", [])
+    if not bedrooms:
+        dormitorios_min_val = int(features.get("dormitorios_min", 0))
+        if dormitorios_min_val > 0:
+            bedrooms = [dormitorios_min_val]
     if bedrooms:
         path_segments.append(
             "-o-".join(f"{b}-dormitorios" for b in sorted(bedrooms))
@@ -642,13 +647,13 @@ def fetch_detail_page(
 
     soup = BeautifulSoup(resp.text, "lxml")
 
-    # Description
-    if not listing.get("description"):
-        for sel in SEL_DETAIL_DESCRIPTION:
-            el = soup.select_one(sel)
-            if el:
-                listing["description"] = el.get_text(separator=" ", strip=True)
-                break
+    # Always prefer the full description from the detail page over the
+    # truncated card preview scraped from the listing results page.
+    for sel in SEL_DETAIL_DESCRIPTION:
+        el = soup.select_one(sel)
+        if el:
+            listing["description"] = el.get_text(separator="\n", strip=True)
+            break
 
     # Features/amenities
     if not listing.get("features"):
@@ -680,9 +685,10 @@ def fetch_detail_page(
 
 def filter_listing(listing: dict, config: dict) -> bool:
     """
-    Keep only listings matching the configured currency and price range.
-    The server-side URL filter handles this too, but we verify client-side
-    to catch edge cases from ArgenProp's re-indexing.
+    Keep only listings matching the configured currency, price range,
+    minimum bedrooms, and minimum covered surface area.
+    The server-side URL filter handles most of this too, but we verify
+    client-side to catch edge cases from ArgenProp's re-indexing.
     """
     price_cfg = config.get("price", {})
     currency  = price_cfg.get("currency", "USD")
@@ -694,7 +700,24 @@ def filter_listing(listing: dict, config: dict) -> bool:
     price = listing.get("price_usd")
     if price is None:
         return False
-    return price_min <= price <= price_max
+    if not (price_min <= price <= price_max):
+        return False
+
+    features = config.get("features", {})
+
+    dormitorios_min = int(features.get("dormitorios_min", 0))
+    if dormitorios_min > 0:
+        bedrooms_val = (listing.get("property_details") or {}).get("bedrooms")
+        if bedrooms_val is not None and bedrooms_val < dormitorios_min:
+            return False
+
+    superficie_min = float(features.get("superficie_cubierta_min", 0))
+    if superficie_min > 0:
+        covered = (listing.get("property_details") or {}).get("surface_covered_m2")
+        if covered is not None and covered < superficie_min:
+            return False
+
+    return True
 
 
 def deduplicate(listings: list[dict]) -> list[dict]:

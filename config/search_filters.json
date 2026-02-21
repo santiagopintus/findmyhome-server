@@ -9,12 +9,7 @@
   "location": {
     "country": "Argentina",
     "city": "Buenos Aires",
-    "neighborhoods": [
-      "Belgrano",
-      "Núñez",
-      "Saavedra",
-      "Villa Urquiza"
-    ]
+    "neighborhoods": ["Belgrano", "Núñez", "Saavedra", "Villa Urquiza"]
   },
 
   "price": {
@@ -25,7 +20,18 @@
 
   "features": {
     "bedrooms": [3],
-    "parking_spots_min": 1
+    "dormitorios_min": 3,
+    "parking_spots_min": 1,
+    "superficie_cubierta_min": 0
+  },
+
+  "properati": {
+    "geo_ids": {
+      "Belgrano": 3652,
+      "Núñez": 3697,
+      "Saavedra": 3698,
+      "Villa Urquiza": 3657
+    }
   },
 
   "scraping": {

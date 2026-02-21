@@ -21,6 +21,7 @@ from api.models import (
     Property,
     PropertyCreate,
     PropertyUpdate,
+    VisitadoUpdate,
 )
 
 router = APIRouter(prefix="/properties", tags=["properties"])
@@ -44,14 +45,15 @@ def _clean(doc: dict) -> dict:
 
 
 def _build_filter(
-    barrio:      str | None,
-    fuente:      str | None,
-    precio_min:  float | None,
-    precio_max:  float | None,
-    ambientes:   int | None,
-    dormitorios: int | None,
-    flags:       list[str],
-    favorito:    bool | None,
+    barrio:        str | None,
+    fuente:        str | None,
+    precio_min:    float | None,
+    precio_max:    float | None,
+    ambientes:     int | None,
+    dormitorios:   int | None,
+    flags:         list[str],
+    exclude_flags: list[str],
+    favorito:      bool | None,
 ) -> dict:
     conditions: list[dict] = []
 
@@ -79,6 +81,10 @@ def _build_filter(
         if flag in FLAG_KEYS:
             conditions.append({f"flags.{flag}": True})
 
+    for flag in exclude_flags:
+        if flag in FLAG_KEYS:
+            conditions.append({f"flags.{flag}": {"$ne": True}})
+
     if favorito is not None:
         conditions.append({"favorito": favorito})
 
@@ -86,6 +92,13 @@ def _build_filter(
 
 
 # ── LIST ──────────────────────────────────────────────────────────────────────
+
+_SORT_FIELDS = {
+    "precio":              "precioUsd",
+    "superficie_cubierta": "detalles.superficieCubierta",
+    "superficie_total":    "detalles.superficieTotal",
+}
+
 
 @router.get("", response_model=PaginatedProperties)
 async def list_properties(
@@ -96,15 +109,22 @@ async def list_properties(
     precio_max:  float | None = Query(None, description="Maximum price in USD"),
     ambientes:   int | None = Query(None, description="Number of rooms (ambientes)"),
     dormitorios: int | None = Query(None, description="Number of bedrooms"),
-    flags:       list[str] = Query(default=[], description="Flag names that must be true"),
-    favorito:    bool | None = Query(None, description="true → only favourites, false → only non-favourites"),
-    page:        int = Query(1, ge=1),
-    page_size:   int = Query(20, ge=1, le=100, alias="pageSize"),
+    flags:         list[str] = Query(default=[], description="Flag names that must be true"),
+    exclude_flags: list[str] = Query(default=[], description="Flag names that must be false"),
+    favorito:      bool | None = Query(None, description="true → only favourites, false → only non-favourites"),
+    sort_by:       str | None = Query(None, description="precio | superficie_cubierta | superficie_total"),
+    sort_order:    str | None = Query("asc", description="asc | desc"),
+    page:          int = Query(1, ge=1),
+    page_size:     int = Query(20, ge=1, le=100, alias="pageSize"),
 ):
-    query  = _build_filter(barrio, fuente, precio_min, precio_max, ambientes, dormitorios, flags, favorito)
+    query  = _build_filter(barrio, fuente, precio_min, precio_max, ambientes, dormitorios, flags, exclude_flags, favorito)
     total  = await collection.count_documents(query)
     skip   = (page - 1) * page_size
-    cursor = collection.find(query).skip(skip).limit(page_size)
+    cursor = collection.find(query)
+    if sort_by and sort_by in _SORT_FIELDS:
+        direction = 1 if sort_order == "asc" else -1
+        cursor = cursor.sort(_SORT_FIELDS[sort_by], direction)
+    cursor = cursor.skip(skip).limit(page_size)
     docs   = [_clean(doc) async for doc in cursor]
 
     return PaginatedProperties(
@@ -198,6 +218,25 @@ async def set_favourite(
     result = await collection.find_one_and_update(
         {"id": id, "fuente": fuente},
         {"$set": {"favorito": body.favorito}},
+        return_document=True,
+    )
+    if not result:
+        raise HTTPException(status_code=404, detail="Property not found")
+    return _clean(result)
+
+
+# ── VISITED ───────────────────────────────────────────────────────────────────
+
+@router.patch("/{fuente}/{id}/visited", response_model=Property)
+async def set_visited(
+    fuente: str,
+    id:     str,
+    body:   VisitadoUpdate,
+    collection: Annotated[AsyncIOMotorCollection, Depends(col)],
+):
+    result = await collection.find_one_and_update(
+        {"id": id, "fuente": fuente},
+        {"$set": {"visitado": body.visitado}},
         return_document=True,
     )
     if not result:
