@@ -7,9 +7,11 @@ POST   /properties                          Insert one
 PUT    /properties/{fuente}/{id}            Partial update
 DELETE /properties/{fuente}/{id}            Delete one
 PATCH  /properties/{fuente}/{id}/favourite  Mark / unmark as favourite
+PATCH  /properties/{fuente}/{id}/hidden     Mark / unmark as hidden
 """
 
 import math
+import re
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
@@ -17,6 +19,8 @@ from motor.motor_asyncio import AsyncIOMotorCollection
 
 from api.models import (
     FavouriteUpdate,
+    NotesUpdate,
+    OcultoUpdate,
     PaginatedProperties,
     Property,
     PropertyCreate,
@@ -26,7 +30,10 @@ from api.models import (
 
 router = APIRouter(prefix="/properties", tags=["properties"])
 
-FLAG_KEYS = {"porEscalera", "balcon", "enConstruccion", "aptoCredito", "cochera"}
+FLAG_KEYS = {
+    "porEscalera", "balcon", "patio", "enConstruccion",
+    "aptoCredito", "cochera", "cocheraOpcional", "reservado",
+}
 FUENTES   = {"argenprop", "zonaprop", "remax"}
 
 
@@ -54,11 +61,12 @@ def _build_filter(
     flags:         list[str],
     exclude_flags: list[str],
     favorito:      bool | None,
+    oculto:        bool | None,
 ) -> dict:
     conditions: list[dict] = []
 
     if barrio:
-        conditions.append({"ubicacion.barrio": {"$regex": barrio, "$options": "i"}})
+        conditions.append({"ubicacion.barrio": {"$regex": re.escape(barrio), "$options": "i"}})
 
     if fuente:
         conditions.append({"fuente": fuente})
@@ -88,6 +96,13 @@ def _build_filter(
     if favorito is not None:
         conditions.append({"favorito": favorito})
 
+    if oculto is not None:
+        if oculto:
+            conditions.append({"oculto": True})
+        else:
+            # Exclude hidden properties; also matches docs where the field doesn't exist
+            conditions.append({"oculto": {"$ne": True}})
+
     return {"$and": conditions} if conditions else {}
 
 
@@ -112,12 +127,13 @@ async def list_properties(
     flags:         list[str] = Query(default=[], description="Flag names that must be true"),
     exclude_flags: list[str] = Query(default=[], description="Flag names that must be false"),
     favorito:      bool | None = Query(None, description="true → only favourites, false → only non-favourites"),
+    oculto:        bool | None = Query(None, description="true → only hidden, false → exclude hidden"),
     sort_by:       str | None = Query(None, description="precio | superficie_cubierta | superficie_total"),
     sort_order:    str | None = Query("asc", description="asc | desc"),
     page:          int = Query(1, ge=1),
     page_size:     int = Query(20, ge=1, le=100, alias="pageSize"),
 ):
-    query  = _build_filter(barrio, fuente, precio_min, precio_max, ambientes, dormitorios, flags, exclude_flags, favorito)
+    query  = _build_filter(barrio, fuente, precio_min, precio_max, ambientes, dormitorios, flags, exclude_flags, favorito, oculto)
     total  = await collection.count_documents(query)
     skip   = (page - 1) * page_size
     cursor = collection.find(query)
@@ -237,6 +253,56 @@ async def set_visited(
     result = await collection.find_one_and_update(
         {"id": id, "fuente": fuente},
         {"$set": {"visitado": body.visitado}},
+        return_document=True,
+    )
+    if not result:
+        raise HTTPException(status_code=404, detail="Property not found")
+    return _clean(result)
+
+
+# ── HIDDEN ────────────────────────────────────────────────────────────────────
+
+@router.patch("/{fuente}/{id}/hidden", response_model=Property)
+async def set_hidden(
+    fuente: str,
+    id:     str,
+    body:   OcultoUpdate,
+    collection: Annotated[AsyncIOMotorCollection, Depends(col)],
+):
+    result = await collection.find_one_and_update(
+        {"id": id, "fuente": fuente},
+        {"$set": {"oculto": body.oculto}},
+        return_document=True,
+    )
+    if not result:
+        raise HTTPException(status_code=404, detail="Property not found")
+    return _clean(result)
+
+
+# ── NOTES ─────────────────────────────────────────────────────────────────────
+
+@router.patch("/{fuente}/{id}/notes", response_model=Property)
+async def set_notes(
+    fuente: str,
+    id:     str,
+    body:   NotesUpdate,
+    collection: Annotated[AsyncIOMotorCollection, Depends(col)],
+):
+    """Update user-written notes: free-text comment and/or manual boolean flags."""
+    data = body.model_dump(exclude_unset=True)
+    updates: dict = {}
+
+    if "comentarios" in data:
+        updates["comentarios"] = data["comentarios"]
+    if "flagsManual" in data:
+        updates["flagsManual"] = data["flagsManual"]  # already a dict from model_dump
+
+    if not updates:
+        raise HTTPException(status_code=400, detail="No fields to update provided.")
+
+    result = await collection.find_one_and_update(
+        {"id": id, "fuente": fuente},
+        {"$set": updates},
         return_document=True,
     )
     if not result:

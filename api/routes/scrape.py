@@ -33,6 +33,11 @@ import scrapers.meli_scraper      as _ml
 
 router = APIRouter(prefix="/scrape", tags=["scrape"])
 
+# Fields set by the user — must never be overwritten when re-scraping a listing
+_USER_FIELDS = {"favorito", "visitado", "oculto"}
+# Defaults applied only when a property is first inserted
+_USER_DEFAULTS = {"favorito": False, "visitado": False, "oculto": False}
+
 
 # ── SHARED DEPENDENCY ─────────────────────────────────────────────────────────
 
@@ -53,8 +58,14 @@ async def scrape_property(
     body: ScrapeRequest,
     collection: Annotated[AsyncIOMotorCollection, Depends(col)],
 ):
-    # 1. Validate domain — 400 if not supported
-    domain = urlparse(body.url).netloc
+    # 1. Validate URL scheme and domain — 400 if not supported
+    parsed_url = urlparse(body.url)
+    if parsed_url.scheme not in ("http", "https"):
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid URL scheme {parsed_url.scheme!r}. Only http/https are allowed.",
+        )
+    domain = parsed_url.netloc
     if domain not in VALID_DOMAINS:
         raise HTTPException(
             status_code=400,
@@ -91,10 +102,12 @@ async def scrape_property(
         {"id": listing["id"], "fuente": listing["fuente"]}
     )
 
-    # 5. Upsert and return
+    # 5. Upsert and return — strip user-managed fields from $set so re-scraping
+    #    never overwrites favorito / visitado / oculto; set defaults on insert only.
+    scrape_data = {k: v for k, v in listing.items() if k not in _USER_FIELDS}
     result = await collection.find_one_and_update(
         {"id": listing["id"], "fuente": listing["fuente"]},
-        {"$set": listing},
+        {"$set": scrape_data, "$setOnInsert": _USER_DEFAULTS},
         upsert=True,
         return_document=ReturnDocument.AFTER,
     )
@@ -258,11 +271,15 @@ async def batch_scrape(
     async for doc in collection.find({"$or": or_filter}, {"id": 1, "fuente": 1}):
         existing_keys.add((doc["id"], doc["fuente"]))
 
-    # 4. Bulk upsert
+    # 4. Bulk upsert — strip user-managed fields from $set so re-scraping
+    #    never overwrites favorito / visitado / oculto; set defaults on insert only.
     ops = [
         UpdateOne(
             {"id": l["id"], "fuente": l["fuente"]},
-            {"$set": l},
+            {
+                "$set": {k: v for k, v in l.items() if k not in _USER_FIELDS},
+                "$setOnInsert": _USER_DEFAULTS,
+            },
             upsert=True,
         )
         for l in all_listings

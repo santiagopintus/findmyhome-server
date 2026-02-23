@@ -20,19 +20,31 @@ class Ubicacion(BaseModel):
 
 
 class Detalles(BaseModel):
-    ambientes:         int   | None = None
-    dormitorios:       int   | None = None
-    banos:             int   | None = None
-    superficieTotal:   float | None = None
+    ambientes:          int   | None = None
+    dormitorios:        int   | None = None
+    banos:              int   | None = None
+    superficieTotal:    float | None = None
     superficieCubierta: float | None = None
+    piso:               int   | None = None
+    antiguedad:         int   | None = None
 
 
 class Flags(BaseModel):
-    porEscalera:    bool = False
-    balcon:         bool = False
-    enConstruccion: bool = False
-    aptoCredito:    bool = False
-    cochera:        bool = False
+    porEscalera:     bool = False
+    balcon:          bool = False
+    patio:           bool = False
+    enConstruccion:  bool = False
+    aptoCredito:     bool = False
+    cochera:         bool = False
+    cocheraOpcional: bool = False
+    reservado:       bool = False
+
+
+class FlagsManual(BaseModel):
+    """Manually set booleans — filled in by the user via the table UI."""
+    cocinaGrande:         bool = False
+    necesitaRemodelar:    bool = False
+    tienePlazaCerca:      bool = False
 
 
 # ── MAIN DOCUMENT MODELS ──────────────────────────────────────────────────────
@@ -49,11 +61,14 @@ class Property(BaseModel):
     url:             str | None = None
     extraidoEn:      str | None = None
     caracteristicas: list[str] = []
-    ubicacion:       Ubicacion | None = None
-    detalles:        Detalles  | None = None
-    flags:           Flags     | None = None
+    ubicacion:       Ubicacion    | None = None
+    detalles:        Detalles     | None = None
+    flags:           Flags        | None = None
+    flagsManual:     FlagsManual  | None = None
+    comentarios:     str | None = None
     favorito:        bool = False
     visitado:        bool = False
+    oculto:          bool = False
 
 
 class PropertyCreate(BaseModel):
@@ -68,11 +83,14 @@ class PropertyCreate(BaseModel):
     url:             str | None = None
     extraidoEn:      str | None = None
     caracteristicas: list[str] = []
-    ubicacion:       Ubicacion | None = None
-    detalles:        Detalles  | None = None
-    flags:           Flags     | None = None
+    ubicacion:       Ubicacion    | None = None
+    detalles:        Detalles     | None = None
+    flags:           Flags        | None = None
+    flagsManual:     FlagsManual  | None = None
+    comentarios:     str | None = None
     favorito:        bool = False
     visitado:        bool = False
+    oculto:          bool = False
 
 
 class PropertyUpdate(BaseModel):
@@ -98,6 +116,17 @@ class FavouriteUpdate(BaseModel):
 class VisitadoUpdate(BaseModel):
     """Body for PATCH /properties/{fuente}/{id}/visited."""
     visitado: bool
+
+
+class OcultoUpdate(BaseModel):
+    """Body for PATCH /properties/{fuente}/{id}/hidden."""
+    oculto: bool
+
+
+class NotesUpdate(BaseModel):
+    """Body for PATCH /properties/{fuente}/{id}/notes."""
+    comentarios: str | None = None
+    flagsManual: FlagsManual | None = None
 
 
 # ── PAGINATED RESPONSE ────────────────────────────────────────────────────────

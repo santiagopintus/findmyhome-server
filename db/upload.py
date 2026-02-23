@@ -39,6 +39,10 @@ PARSED_GLOB = os.path.join(ROOT_DIR, "parsed", "*.json")
 DB_NAME         = "earthbnb"
 COLLECTION_NAME = "properties"
 
+# Fields set by the user — never overwrite on re-upload
+_USER_FIELDS   = {"favorito", "visitado", "oculto"}
+_USER_DEFAULTS = {"favorito": False, "visitado": False, "oculto": False}
+
 
 # ── CONNECTION ────────────────────────────────────────────────────────────────
 
@@ -85,7 +89,10 @@ def upload_file(collection, filepath: str) -> tuple[int, int]:
     operations = [
         UpdateOne(
             filter={"id": lst["id"], "fuente": lst["fuente"]},
-            update={"$set": lst},
+            update={
+                "$set": {k: v for k, v in lst.items() if k not in _USER_FIELDS},
+                "$setOnInsert": _USER_DEFAULTS,
+            },
             upsert=True,
         )
         for lst in listings

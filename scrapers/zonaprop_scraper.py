@@ -86,6 +86,18 @@ PAT_BATHROOMS       = re.compile(r"(\d+)\s*ba[ñn]", re.IGNORECASE)
 PAT_SURFACE_TOTAL   = re.compile(r"([\d.,]+)\s*m[²2]\s*tot", re.IGNORECASE)
 PAT_SURFACE_COVERED = re.compile(r"([\d.,]+)\s*m[²2]\s*(?:cub|cubiertos?)?", re.IGNORECASE)
 
+# CDN domain used by ZonaProp for all property photos.
+ZONAPROP_CDN = "imgar.zonapropcdn.com/avisos"
+
+# Size tokens in ZonaProp CDN URLs, ordered from largest to smallest.
+# Used to prefer higher-res versions when the same photo appears at multiple sizes.
+_ZP_IMG_SIZE_PAT = re.compile(r"/\d+x\d+/|/full/", re.IGNORECASE)
+_ZP_IMG_URL_PAT  = re.compile(
+    r"https://imgar\.zonapropcdn\.com/avisos/[^\s\"\'\\>)]+\.(?:jpg|jpeg|png|webp)",
+    re.IGNORECASE,
+)
+_ZP_SIZE_PREF = ("860x", "full", "640x", "460x", "360x")
+
 # Detail page selectors (used only if FETCH_DETAIL_PAGES = True)
 SEL_DETAIL_DESCRIPTION = [
     "div.section-description",             # ZonaProp (verified Feb 2026)
@@ -509,6 +521,50 @@ def parse_listing_cards(soup: BeautifulSoup) -> list[dict]:
 
 # ── DETAIL PAGE ENRICHMENT (optional) ────────────────────────────────────────
 
+def _extract_detail_images(html: str) -> list[str]:
+    """
+    Extract all unique property gallery images from a ZonaProp detail page.
+
+    Searches the raw HTML text (including inline JSON / React script blobs) for
+    ZonaProp CDN image URLs.  When the same photo appears at multiple sizes the
+    highest-resolution variant is kept.
+
+    ZonaProp CDN URL anatomy:
+      https://imgar.zonapropcdn.com/avisos/{path}/{WIDTHxHEIGHT or full}/{file}
+    The path + file together uniquely identify a photo; only the size token varies.
+    """
+    # Collect every CDN URL found anywhere in the HTML
+    raw_urls: list[str] = []
+    for url in _ZP_IMG_URL_PAT.findall(html):
+        raw_urls.append(url.split("?")[0].rstrip(")"))
+
+    # Group by "path-without-size" so different resolutions of the same photo
+    # are treated as one entry.
+    # Replace the size token with a single "/" so that URLs that have no size
+    # segment (e.g. full-res originals) produce the same key as their
+    # thumbnail counterparts (e.g. .../360x266/photo.jpg → .../photo.jpg).
+    by_key: dict[str, list[str]] = {}
+    for url in raw_urls:
+        key = _ZP_IMG_SIZE_PAT.sub("/", url)
+        by_key.setdefault(key, []).append(url)
+
+    result: list[str] = []
+    for urls in by_key.values():
+        # Pick the largest available size
+        best = urls[0]
+        for pref in _ZP_SIZE_PREF:
+            for url in urls:
+                if f"/{pref}" in url.lower():
+                    best = url
+                    break
+            else:
+                continue
+            break
+        result.append(best)
+
+    return result
+
+
 def fetch_detail_page(
     scraper: cloudscraper.CloudScraper,
     listing: dict,
@@ -560,6 +616,16 @@ def fetch_detail_page(
             }
         except Exception as exc:
             log.debug("Could not decode ZonaProp coordinates: %s", exc)
+
+    # Full image gallery — the listing card only shows 1–3 thumbnails; the
+    # detail page HTML (and its embedded JSON) contains the complete set.
+    detail_images = _extract_detail_images(resp.text)
+    if detail_images:
+        log.debug(
+            "Detail page images: %d (was %d on card)",
+            len(detail_images), len(listing.get("images", [])),
+        )
+        listing["images"] = detail_images
 
     return listing
 

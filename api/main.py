@@ -9,6 +9,7 @@ Interactive docs available at:
     http://localhost:8000/redoc  (ReDoc)
 """
 
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -18,12 +19,27 @@ from api.db import create_client, get_collection
 from api.routes.properties import router as properties_router
 from api.routes.scrape import router as scrape_router
 
+# Comma-separated list of allowed origins, e.g.:
+#   ALLOWED_ORIGINS=https://my-app.vercel.app,http://localhost:3000
+# Defaults to "*" if not set (fine for local dev, not for production).
+_raw_origins = os.getenv("ALLOWED_ORIGINS", "*")
+_CORS_ORIGINS = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup — create Motor client and attach collection to app state
     client = create_client()
-    app.state.col = get_collection(client)
+    col = get_collection(client)
+    app.state.col = col
+
+    # Ensure indexes exist (idempotent — safe to call on every startup)
+    await col.create_index([("id", 1), ("fuente", 1)], unique=True, name="id_fuente_unique")
+    await col.create_index("precioUsd", name="idx_precio")
+    await col.create_index("ubicacion.barrio", name="idx_barrio")
+    await col.create_index("favorito", name="idx_favorito")
+    await col.create_index("detalles.ambientes", name="idx_ambientes")
+
     yield
     # Shutdown — close the connection
     client.close()
@@ -38,7 +54,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],   # tighten this when deploying
+    allow_origins=_CORS_ORIGINS,
     allow_methods=["*"],
     allow_headers=["*"],
 )

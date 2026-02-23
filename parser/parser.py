@@ -42,6 +42,8 @@ _DETAILS_MAP = {
     "bathrooms": "banos",
     "surface_total_m2": "superficieTotal",
     "surface_covered_m2": "superficieCubierta",
+    "floor": "piso",
+    "age_years": "antiguedad",
 }
 
 
@@ -109,7 +111,7 @@ def _build_search_text(listing: dict) -> str:
 
 def compute_flags(listing: dict) -> dict:
     text = _build_search_text(listing)
-    cochera_opcional = bool(re.search(r"(cochera|guardacoche)\s+(es\s+)?opcional", text))
+    cochera_opcional = bool(re.search(r"(cochera|guardacoche)\s+(es\s+)?opcional", text)) or bool(re.search(r"alquilar (cochera|guardacoche)\s", text))
     no_credito = bool(re.search(r"no\s+(es\s+)?apto\s+(al\s+|para\s+)?cr[eé]dito|sin\s+cr[eé]dito", text))
 
     return {
@@ -122,8 +124,9 @@ def compute_flags(listing: dict) -> dict:
         ),
         "aptoCredito": not no_credito and bool(re.search(r"apto\s+cr[eé]dito|cr[eé]dito", text)),
         "cocheraOpcional": cochera_opcional,
-        "cochera": not cochera_opcional and ("cochera" in text or "coche" in text and "sin cochera" not in text),
-        "reservado": bool(re.search(r"reservad[ao]", text)),
+        "cochera": not cochera_opcional and (("cochera" in text or "coche" in text) and "sin cochera" not in text),
+        "reservado": bool(re.search(r"reservad[ao]", text)) and not re.search(r"derechos\s+reservados", text),
+        "patio": bool(re.search(r"\bpatio\b", text)) and not re.search(r"sin patio", text),
     }
 
 
