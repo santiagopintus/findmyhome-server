@@ -14,6 +14,8 @@ build/
 .venv/
 venv/
 
+# AI stuff
 .claude/
-
 CLAUDE.md
+FRONTEND_INSTRUCTIONS.md
+BACKEND_DOCS.md
