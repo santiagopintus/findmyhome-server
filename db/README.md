@@ -100,7 +100,7 @@ python db/read.py --id 18059878 --fuente argenprop
 ### Sample output
 ```
 ------------------------------------------------------------
-  Collection : earthbnb.properties
+  Collection : findmyhome.properties
   Total docs : 140
   argenprop   : 17 properties
   remax       : 12 properties
@@ -174,7 +174,7 @@ python db/remove.py --no-coords --yes
 
 ## Database schema
 
-**Database:** `earthbnb`
+**Database:** `findmyhome`
 **Collection:** `properties`
 **Index:** `{ id: 1, fuente: 1 }` (unique)
 

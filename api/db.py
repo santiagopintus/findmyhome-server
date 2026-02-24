@@ -11,13 +11,13 @@ from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorCollection
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+load_dotenv(os.path.join(ROOT_DIR, ".env"))
 
-DB_NAME         = "earthbnb"
+DB_NAME         = os.getenv("MONGODB_DB_NAME", "earthbnb")
 COLLECTION_NAME = "properties"
 
 
 def create_client() -> AsyncIOMotorClient:
-    load_dotenv(os.path.join(ROOT_DIR, ".env"))
     uri = os.getenv("MONGODB_URI")
     if not uri:
         raise RuntimeError("MONGODB_URI not set in .env")

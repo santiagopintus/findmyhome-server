@@ -55,7 +55,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
 ROOT_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_NAME         = "earthbnb"
+DB_NAME         = os.getenv("MONGODB_DB_NAME", "earthbnb")
 COLLECTION_NAME = "properties"
 
 FLAG_KEYS = ["porEscalera", "balcon", "enConstruccion", "aptoCredito", "cochera"]

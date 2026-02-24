@@ -46,7 +46,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Encontremos Casa API",
+    title="Find My Home API",
     description="Real estate listings from ArgenProp, ZonaProp and RE/MAX.",
     version="1.0.0",
     lifespan=lifespan,

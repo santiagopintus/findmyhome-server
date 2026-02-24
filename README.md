@@ -1,230 +1,175 @@
-# encontremos-casa
+# findmyhome — Backend
 
-Property listing scrapers for Buenos Aires real estate research.
+> **Disclaimer:** This project is built for educational purposes only. It is a personal learning tool and is not intended for commercial use or mass data collection.
 
-## Search Filters
+Python scraper pipeline + FastAPI backend for the **Find My Home** property aggregator.
 
-All search criteria live in **`config/search_filters.json`** — a single shared file
-used by every scraper in this project. Edit it to change what you're looking for;
-no scraper code needs to change.
-
-```json
-{
-  "property": {
-    "type": "departamento",
-    "operation": "sale"
-  },
-  "location": {
-    "city": "Buenos Aires",
-    "neighborhoods": ["Belgrano", "Núñez", "Saavedra", "Villa Urquiza"]
-  },
-  "price": {
-    "currency": "USD",
-    "min": 150000,
-    "max": 180000
-  },
-  "features": {
-    "bedrooms": [2, 3],
-    "parking_spots_min": 1
-  },
-  "scraping": {
-    "max_pages": 10,
-    "delay_between_requests_seconds": [1.0, 2.0],
-    "max_retries": 3
-  }
-}
-```
-
-### Field reference
-
-| Field | Type | Description |
-|---|---|---|
-| `property.type` | string | `"departamento"`, `"casa"`, `"ph"`, etc. |
-| `property.operation` | string | `"sale"` or `"rent"` |
-| `location.neighborhoods` | array | Display names — each scraper normalizes to its own slug format |
-| `price.currency` | string | `"USD"` or `"ARS"` |
-| `price.min` / `price.max` | number | Price range in the chosen currency |
-| `features.bedrooms` | array | Accepted bedroom counts — `[2, 3]` means 2 OR 3 bedrooms |
-| `features.parking_spots_min` | number | Minimum parking spots. `0` or omit = no filter |
-| `scraping.max_pages` | number | Hard cap on pages fetched per scraper run |
-| `scraping.delay_between_requests_seconds` | [min, max] | Random delay range between page requests |
-| `scraping.max_retries` | number | HTTP retry attempts per failed request |
-
-## Scrapers
-
-### ArgenProp Scraper
-
-```bash
-pip install -r requirements.txt
-python scrapers/argenprop_scraper.py
-```
-
-Reads `config/search_filters.json` and builds the ArgenProp search URL automatically:
-
-```
-https://www.argenprop.com/departamentos/venta/
-  belgrano-o-nunez-o-saavedra-o-villa-urquiza/
-  2-dormitorios-o-3-dormitorios/
-  dolares-150000-180000
-  ?1-o-mas-cocheras
-```
-
-Output is written to `output/argenprop_results_YYYY-MM-DD_HH-MM-SS.json`.
-
-**ArgenProp URL translation rules** (in `scrapers/argenprop_scraper.py`):
-
-| Config field | ArgenProp URL segment |
-|---|---|
-| `neighborhoods: ["Belgrano", "Núñez"]` | `belgrano-o-nunez` (path segment) |
-| `bedrooms: [2, 3]` | `2-dormitorios-o-3-dormitorios` (path segment) |
-| `price: {min: 150000, max: 180000, currency: "USD"}` | `dolares-150000-180000` (path segment) |
-| `parking_spots_min: 1` | `?1-o-mas-cocheras` (query param) |
-
-Common neighborhood display names: `Belgrano`, `Núñez`, `Palermo`, `Villa Urquiza`,
-`Colegiales`, `Saavedra`, `Villa Devoto`, `Caballito`.
-
-**Scraper-only setting** (not in config): set `FETCH_DETAIL_PAGES = True` at the top of
-`argenprop_scraper.py` to fetch each property's detail page for full description and
-amenities list. Off by default — significantly increases runtime.
-
-#### Output Schema
-
-```json
-{
-  "metadata": {
-    "total_results": 446,
-    "scraped_at": "2026-02-13T19:30:00+00:00",
-    "search_criteria": {
-      "neighborhoods": ["Núñez", "Belgrano"],
-      "price_min": 150000,
-      "price_max": 160000,
-      "property_type": "departamentos",
-      "operation": "venta"
-    },
-    "listings_count": 45
-  },
-  "listings": [
-    {
-      "id": "19702981",
-      "title": "Montañeses al 2700",
-      "price_usd": 155000,
-      "price_currency": "USD",
-      "location": {
-        "neighborhood": "Belgrano",
-        "street_address": "Montañeses al 2700",
-        "city": "Capital Federal"
-      },
-      "property_details": {
-        "rooms": 2,
-        "bedrooms": 1,
-        "bathrooms": 1,
-        "surface_total_m2": null,
-        "surface_covered_m2": 45.0
-      },
-      "description": "Departamento a estrenar...",
-      "images": [
-        "https://www.argenprop.com/static-content/19702981/photo1_u_small.jpg"
-      ],
-      "url": "https://www.argenprop.com/departamento-en-venta-en-belgrano-2-ambientes--19702981",
-      "source": "argenprop",
-      "scraped_at": "2026-02-13T19:30:00+00:00",
-      "features": []
-    }
-  ]
-}
-```
-
-**Field notes:**
-
-- `id` — ArgenProp's internal numeric property ID (from URL slug)
-- `price_usd` — Always in USD; ARS listings are filtered out
-- `property_details.rooms` — Total ambientes (includes living room)
-- `property_details.bedrooms` — Dormitorios only
-- `surface_total_m2` / `surface_covered_m2` — Either or both may be `null` if not listed on the card
-- `features` — Amenities list (balcón, cochera, etc.); populated only if `FETCH_DETAIL_PAGES = True`
-- `description` — Short excerpt from listing card; full text requires `FETCH_DETAIL_PAGES = True`
-
-#### Technical Notes
-
-**Why `requests` works (no Playwright needed)**
-
-ArgenProp is server-side rendered. The 403 errors encountered with simple requests
-are caused by missing session cookies, not JavaScript rendering. The scraper fixes this
-by warming up the session on the homepage before making search requests.
-
-**Argentine price format**
-
-Argentina uses `.` as a thousands separator and `,` as the decimal separator.
-`"USD 159.999"` means USD 159,999 — not USD 159.999. The `parse_price()` function
-handles this disambiguation correctly.
-
-**CSS selector maintenance**
-
-All HTML selectors are defined as constants (`SEL_*`) at the top of the file.
-If ArgenProp changes their HTML structure, update only those constants.
-
-**Polite scraping**
-
-The scraper waits 1–2 seconds between page requests and includes standard browser
-headers. Do not reduce `REQUEST_DELAY_SECONDS` below 1 second.
+Scrapes multiple Argentine real estate sites, normalises listings, stores them in MongoDB, and serves them through a REST API consumed by `findmyhome-app`.
 
 ---
 
-### ZonaProp Scraper
+## Tech Stack
 
-```bash
-pip install -r requirements.txt
-python scrapers/zonaprop_scraper.py
-```
-
-Reads `config/search_filters.json` and builds the ZonaProp search URL automatically:
-
-```
-https://www.zonaprop.com.ar/departamentos-venta-belgrano-nunez-saavedra-villa-urquiza-
-  desde-2-hasta-3-habitaciones-mas-de-1-garage-desde-150000-hasta-180000-dolar.html
-```
-
-Output is written to `output/zonaprop_results_YYYY-MM-DD_HH-MM-SS.json`.
-
-**ZonaProp URL translation rules** (in `scrapers/zonaprop_scraper.py`):
-
-| Config field | ZonaProp URL segment |
+| Layer | Technology |
 |---|---|
-| `neighborhoods: ["Belgrano", "Núñez"]` | `belgrano-nunez` (dash-separated, no `-o-`) |
-| `bedrooms: [2, 3]` | `desde-2-hasta-3-habitaciones` (range format) |
-| `price: {min: 150000, max: 180000, currency: "USD"}` | `desde-150000-hasta-180000-dolar` (range in URL) |
-| `parking_spots_min: 1` | `mas-de-1-garage` (minimum threshold) |
+| Language | Python 3.11+ |
+| Web framework | FastAPI + Uvicorn |
+| Async DB driver | Motor (MongoDB) |
+| Sync DB driver | PyMongo (scripts) |
+| HTTP | `requests` · `cloudscraper` (Cloudflare bypass) |
+| HTML parsing | BeautifulSoup4 + lxml |
+| Config | `python-dotenv` · `config/search_filters.json` |
 
-**Scraper-only setting** (not in config): set `FETCH_DETAIL_PAGES = True` at the top of
-`zonaprop_scraper.py` to fetch each property's detail page for full description and
-amenities list. Off by default — significantly increases runtime.
+---
 
-#### Output Schema
+## Project Layout
 
-Same format as ArgenProp (see Output Schema section above). The `source` field will be
-`"zonaprop"` instead of `"argenprop"`.
+```
+run.py                     # Master pipeline orchestrator (scrape → parse → upload)
+config/search_filters.json # All search params — edit this to change filters
 
-#### Technical Notes
+scrapers/
+  *_scraper.py             # one scraper per source
+  single.py                # on-demand dispatcher (used by POST /scrape)
 
-**Cloudflare protection & `cloudscraper`**
+parser/parser.py           # normalise + remap + compute boolean flags
 
-ZonaProp is behind Cloudflare's bot protection with JavaScript challenges. Plain `requests`
-returns 403 ("Just a moment..."). The scraper uses the `cloudscraper` library, which
-automatically handles Cloudflare's verification challenge without needing a headless browser.
+db/
+  upload.py                # bulk upsert to MongoDB
+  read.py                  # inspect collection
 
-**ZonaProp HTML structure (verified Feb 2026)**
+api/
+  main.py                  # FastAPI app · CORS · lifespan · index creation
+  db.py                    # Motor connection
+  models.py                # Pydantic schemas
+  routes/
+    properties.py          # GET/POST/PUT/DELETE/PATCH /properties
+    scrape.py              # POST /scrape · POST /scrape/batch
 
-- Listing cards use `data-qa="posting PROPERTY"` with `data-id` attribute for property ID
-- Property URL is in `data-to-posting` attribute on the card (not in `<a href>`)
-- Features are concatenated into a single text node: `"65 m² tot.3 amb.2 dorm.1 baño1 coch."`
-- Images are in `[data-qa='POSTING_CARD_GALLERY']` as plain `<img src="...">` from `imgar.zonapropcdn.com`
-- CSS selectors defined as `SEL_*` constants at the top of the file for easy maintenance
+output/                    # raw JSON from scrapers (auto-generated, gitignored)
+parsed/                    # normalised JSON before DB upload (auto-generated, gitignored)
+```
 
-**Argentine price format**
+---
 
-Same as ArgenProp: `.` = thousands, `,` = decimal. Handled by `parse_price()` function.
+## API Reference
 
-**Polite scraping**
+### Properties
 
-Same delays and retry strategy as ArgenProp: 1–2 seconds between page requests, exponential
-backoff on failures, up to 3 retries per page.
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/properties` | Paginated list with filters |
+| `GET` | `/properties/{fuente}/{id}` | Single property |
+| `POST` | `/properties` | Create |
+| `PUT` | `/properties/{fuente}/{id}` | Partial update |
+| `DELETE` | `/properties/{fuente}/{id}` | Delete |
+| `PATCH` | `/properties/{fuente}/{id}/favourite` | Toggle `favorito` |
+| `PATCH` | `/properties/{fuente}/{id}/visited` | Toggle `visitado` |
+| `PATCH` | `/properties/{fuente}/{id}/hidden` | Toggle `oculto` |
+| `PATCH` | `/properties/{fuente}/{id}/notes` | Update `comentarios` / `flagsManual` |
+
+#### `GET /properties` — query params
+
+| Param | Type | Description |
+|---|---|---|
+| `barrio` | string | Neighbourhood partial match (case-insensitive) |
+| `fuente` | string | Source site identifier |
+| `precio_min` / `precio_max` | float | Price range in USD |
+| `ambientes` | int | Total rooms |
+| `dormitorios` | int | Bedrooms |
+| `flags` | string[] | Flag names that must be `true` (repeatable) |
+| `exclude_flags` | string[] | Flag names that must not be `true` |
+| `favorito` | bool | `true` → favourites only |
+| `oculto` | bool | `false` → exclude hidden (default for frontend) |
+| `sort_by` | string | `precio` · `superficie_cubierta` · `superficie_total` |
+| `sort_order` | string | `asc` (default) · `desc` |
+| `page` / `pageSize` | int | Pagination (default: page 1, 20 per page, max 100) |
+
+### Scrape
+
+| Method | Path | Description |
+|---|---|---|
+| `POST` | `/scrape` | Scrape a single URL on demand |
+| `POST` | `/scrape/batch` | Run all 4 scrapers with a custom config (~60–120 s) |
+
+### Health
+
+| Method | Path | Description |
+|---|---|---|
+| `GET` | `/health` | Returns `{"status": "ok"}` |
+
+---
+
+## Database Schema
+
+**Collection:** `properties` · **Unique index:** `(id, fuente)`
+
+```
+id                  string   — source's internal property ID
+fuente              string   — source site identifier
+titulo              string
+precioUsd           number
+moneda              string
+descripcion         string
+imagenes            string[]
+url                 string
+extraidoEn          string   — ISO 8601 timestamp
+caracteristicas     string[]
+
+ubicacion
+  barrio            string
+  direccion         string
+  ciudad            string
+  coordenadas       object   — { lat, lng }
+
+detalles
+  ambientes         number
+  dormitorios       number
+  banos             number
+  superficieTotal   number
+  superficieCubierta number
+  piso              number
+  antiguedad        number
+
+flags               — computed by parser/parser.py
+  porEscalera       bool
+  balcon            bool
+  patio             bool
+  enConstruccion    bool
+  aptoCredito       bool
+  cochera           bool
+  cocheraOpcional   bool
+  reservado         bool
+
+favorito            bool     — user-managed, never overwritten by scraper
+visitado            bool     — user-managed
+oculto              bool     — user-managed
+comentarios         string   — user notes
+flagsManual         object   — user-set boolean overrides
+```
+
+---
+
+## Scrapers — Technical Notes
+
+Each scraper handles a different anti-bot setup:
+
+- **Server-side rendered sites** — `requests` + BeautifulSoup with session cookie warm-up to avoid 403s.
+- **Cloudflare-protected sites** — `cloudscraper` handles the JS challenge without a headless browser.
+- **Next.js sites** — structured data extracted directly from the embedded `__NEXT_DATA__` JSON payload instead of parsing HTML.
+
+---
+
+## Architecture
+
+The API is deployed to Render. The scraper pipeline runs locally — a batch job that writes intermediate files to disk and uploads results to MongoDB Atlas.
+
+```
+Local machine  →  run.py  →  MongoDB Atlas  ←  Render (API)  ←  Frontend
+```
+
+---
+
+## Companion Repo
+
+Frontend: [`findmyhome-app`](../findmyhome-app) — Next.js + React + TypeScript
