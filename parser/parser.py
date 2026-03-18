@@ -116,7 +116,7 @@ def compute_flags(listing: dict) -> dict:
 
     return {
         "porEscalera": "por escalera" in text,
-        "balcon": bool(re.search(r"balc[oó]n", text)) and not re.search(r"sin balc[oó]n", text),
+        "balcon": bool(re.search(r"balc[oó]n", text)) and not re.search(r"sin balc[oó]n", text) and not re.search(r"balc[oó]n franc[eé]s", text),
         "enConstruccion": (
             "de pozo" in text
             or "emprendimiento" in text
@@ -124,7 +124,7 @@ def compute_flags(listing: dict) -> dict:
         ),
         "aptoCredito": not no_credito and bool(re.search(r"apto\s+cr[eé]dito|cr[eé]dito", text)),
         "cocheraOpcional": cochera_opcional,
-        "cochera": not cochera_opcional and (("cochera" in text or "coche" in text) and "sin cochera" not in text),
+        "cochera": not cochera_opcional and (("cochera" in text or "coche" in text) and "sin cochera" not in text and "sin guardacoche" not in text and "no posee cochera" not in text),
         "reservado": bool(re.search(r"reservad[ao]", text)) and not re.search(r"derechos\s+reservados", text),
         "patio": bool(re.search(r"\bpatio\b", text)) and not re.search(r"sin patio", text),
     }

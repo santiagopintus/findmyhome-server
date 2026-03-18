@@ -131,7 +131,7 @@ async def list_properties(
     sort_by:       str | None = Query(None, description="precio | superficie_cubierta | superficie_total"),
     sort_order:    str | None = Query("asc", description="asc | desc"),
     page:          int = Query(1, ge=1),
-    page_size:     int = Query(20, ge=1, le=100, alias="pageSize"),
+    page_size:     int = Query(20, ge=1, le=2000, alias="pageSize"),
 ):
     query  = _build_filter(barrio, fuente, precio_min, precio_max, ambientes, dormitorios, flags, exclude_flags, favorito, oculto)
     total  = await collection.count_documents(query)
